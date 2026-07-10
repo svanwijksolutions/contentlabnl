@@ -2,13 +2,6 @@
 // Content Lab: js/script.js
 // ==========================================================================
 
-// Verplicht init-pattern: readyState-check ipv alleen DOMContentLoaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-
 function init() {
   loadComponents().then(() => {
     initHamburgerMenu();
@@ -25,6 +18,29 @@ function init() {
 // ---------- Reveal-on-scroll animaties ----------
 let revealObserver;
 function initRevealAnimations() {
+  const els = Array.from(document.querySelectorAll('.reveal'));
+
+  // Fallback: geen IntersectionObserver → toon alles direct, geen begin-staat.
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('reveal-visible'));
+    return;
+  }
+
+  // Zet de class die de begin-verborgen-staat activeert (progressive enhancement).
+  document.documentElement.classList.add('reveal-ready');
+
+  // Elementen die bij het laden AL (deels) in beeld staan: meteen tonen.
+  // Dit voorkomt dat de hero-tekst ooit onzichtbaar blijft.
+  const showIfInView = (el) => {
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < vh * 0.92 && rect.bottom > 0) {
+      el.classList.add('reveal-visible');
+      return true;
+    }
+    return false;
+  };
+
   revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -32,15 +48,39 @@ function initRevealAnimations() {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  els.forEach(el => {
+    if (!showIfInView(el)) {
+      revealObserver.observe(el);
+    }
+  });
+
+  // Veiligheidsnet 1: kort na load nogmaals alles checken dat in beeld staat.
+  requestAnimationFrame(() => els.forEach(showIfInView));
+
+  // Veiligheidsnet 2: mocht er iets misgaan, toon na 1.5s alles wat zichtbaar hoort.
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.reveal-visible)').forEach(showIfInView);
+  }, 1500);
 }
 
 // Wordt aangeroepen door content-loader.js nadat dynamische content is ingevoegd
 window.observeReveal = function (container) {
-  if (!revealObserver) return;
-  container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  const els = Array.from(container.querySelectorAll('.reveal'));
+  if (!revealObserver) {
+    els.forEach(el => el.classList.add('reveal-visible'));
+    return;
+  }
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  els.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh * 0.92 && rect.bottom > 0) {
+      el.classList.add('reveal-visible');
+    } else {
+      revealObserver.observe(el);
+    }
+  });
 };
 
 // ---------- Header + Footer laden via fetch() ----------
@@ -132,13 +172,25 @@ function initWhatsAppFooterProximity() {
   const footer = document.querySelector('.site-footer');
   if (!whatsappFloat || !footer) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      whatsappFloat.classList.toggle('whatsapp-on-dark', entry.isIntersecting);
-    });
-  }, { threshold: 0 });
+  function update() {
+    const footerRect = footer.getBoundingClientRect();
+    const waRect = whatsappFloat.getBoundingClientRect();
+    const waCenterY = waRect.top + waRect.height / 2;
+    whatsappFloat.classList.toggle('whatsapp-on-dark', footerRect.top <= waCenterY);
+  }
 
-  observer.observe(footer);
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+  }
+  // Meerdere triggers zodat het onder alle omstandigheden werkt.
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(update, { threshold: [0, 0.01, 0.5, 1] }).observe(footer);
+  }
+  update();
 }
 function initActiveNavLink() {
   const current = window.location.pathname.split('/').pop() || 'index.html';
@@ -198,6 +250,14 @@ function initContactForm() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // Conversie-event naar Google Analytics (Deel 11): meet daadwerkelijke
+        // aanvragen, niet alleen paginabezoeken.
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            event_category: 'contact',
+            event_label: 'contactformulier'
+          });
+        }
         if (resultEl) {
           resultEl.textContent = isEnglish
             ? 'Thank you. Your message has been sent successfully.'
@@ -226,13 +286,26 @@ function initContactForm() {
 
 // ---------- Footer jaartal ----------
 function initFooterYear() {
-  // Wordt na component-load opnieuw aangeroepen vanuit loadComponents indien nodig
   const interval = setInterval(() => {
     const yearEl = document.getElementById('footer-year');
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
+    const creditEls = document.querySelectorAll('.footer-credit-year');
+    if (yearEl || creditEls.length) {
+      const year = new Date().getFullYear();
+      if (yearEl) yearEl.textContent = year;
+      creditEls.forEach(el => { el.textContent = year; });
       clearInterval(interval);
     }
   }, 100);
   setTimeout(() => clearInterval(interval), 3000);
+}
+
+// ---------- Start ----------
+// Aanroepen ONDERAAN het bestand, zodat alle functies en `let`-declaraties
+// (zoals revealObserver) al geïnitialiseerd zijn voordat init() draait.
+// Dit voorkomt een "Cannot access before initialization"-fout die anders het
+// hele script zou laten crashen en tekst onzichtbaar zou maken.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
 }

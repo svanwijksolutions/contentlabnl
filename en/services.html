@@ -25,6 +25,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&display=swap">
 
   <link rel="stylesheet" href="/style.css">
+  <!-- Google Analytics (placeholder ID, vervang G-XXXXXXXXXX na aanmaken GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -33,7 +41,7 @@
   <main id="main">
     <section class="hero" style="padding-bottom: 0;">
       <div class="container" style="max-width: 800px;">
-        <span class="eyebrow">Services</span>
+        <span class="eyebrow reveal">Services</span>
         <h1>Five ways to grow your brand</h1>
         <p>Each service focuses on a different part of brand building. Use them individually, or combine them into a complete package.</p>
       </div>
@@ -42,41 +50,61 @@
     <section>
       <div class="container">
         <div class="service-block reveal">
-          <div class="service-icon-wrap"><img src="/assets/icons/social.svg" alt="" width="36" height="36"></div>
+          <div class="service-icon-wrap draw-icon reveal"><svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <circle class="draw-path" pathLength="1" cx="10" cy="24" r="4"/>
+  <circle class="draw-path" pathLength="1" cx="36" cy="12" r="4"/>
+  <circle class="draw-path" pathLength="1" cx="36" cy="36" r="4"/>
+  <line class="draw-path" pathLength="1" x1="13.5" y1="22" x2="32.5" y2="14"/>
+  <line class="draw-path" pathLength="1" x1="13.5" y1="26" x2="32.5" y2="34"/>
+</svg></div>
           <div class="service-text">
-            <h2>Social Media Management</h2>
+            <h2 class="reveal">Social Media Management</h2>
             <p>End-to-end social media management including content planning, content creation, copywriting, publishing, community management, and performance reporting.</p>
           </div>
         </div>
 
         <div class="service-block reverse reveal">
-          <div class="service-icon-wrap"><img src="/assets/icons/camera.svg" alt="" width="36" height="36"></div>
+          <div class="service-icon-wrap draw-icon reveal"><svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path class="draw-path" pathLength="1" d="M8 16h6l3-4h14l3 4h6a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V18a2 2 0 0 1 2-2z"/>
+  <circle class="draw-path" pathLength="1" cx="24" cy="27" r="7"/>
+</svg></div>
           <div class="service-text">
-            <h2>Content Creation</h2>
+            <h2 class="reveal">Content Creation</h2>
             <p>Professional photography, videography, drone footage, Reels, and branded content for websites, social media, and advertising campaigns.</p>
           </div>
         </div>
 
         <div class="service-block reveal">
-          <div class="service-icon-wrap"><img src="/assets/icons/branding.svg" alt="" width="36" height="36"></div>
+          <div class="service-icon-wrap draw-icon reveal"><svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path class="draw-path" pathLength="1" d="M30 8l10 10-18 18-10 2 2-10z"/>
+  <line class="draw-path" pathLength="1" x1="26" y1="12" x2="36" y2="22"/>
+</svg></div>
           <div class="service-text">
-            <h2>Branding &amp; Visual Identity</h2>
+            <h2 class="reveal">Branding &amp; Visual Identity</h2>
             <p>Create a memorable and consistent brand identity with a custom logo, color palette, typography, visual guidelines, and brand assets that reflect your business values.</p>
           </div>
         </div>
 
         <div class="service-block reverse reveal">
-          <div class="service-icon-wrap"><img src="/assets/icons/website.svg" alt="" width="36" height="36"></div>
+          <div class="service-icon-wrap draw-icon reveal"><svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <rect class="draw-path" pathLength="1" x="6" y="10" width="36" height="24" rx="2"/>
+  <line class="draw-path" pathLength="1" x1="6" y1="17" x2="42" y2="17"/>
+  <line class="draw-path" pathLength="1" x1="18" y1="40" x2="30" y2="40"/>
+  <line class="draw-path" pathLength="1" x1="24" y1="34" x2="24" y2="40"/>
+</svg></div>
           <div class="service-text">
-            <h2>Website Design</h2>
+            <h2 class="reveal">Website Design</h2>
             <p>Modern, responsive websites designed to showcase your business, improve credibility, and convert visitors into customers.</p>
           </div>
         </div>
 
         <div class="service-block reveal">
-          <div class="service-icon-wrap"><img src="/assets/icons/strategy.svg" alt="" width="36" height="36"></div>
+          <div class="service-icon-wrap draw-icon reveal"><svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <polyline class="draw-path" pathLength="1" points="8 34 18 22 26 30 42 12"/>
+  <polyline class="draw-path" pathLength="1" points="30 12 42 12 42 24"/>
+</svg></div>
           <div class="service-text">
-            <h2>Brand Strategy &amp; Audit</h2>
+            <h2 class="reveal">Brand Strategy &amp; Audit</h2>
             <p>A tailored strategy based on your business, audience and competitors: brand positioning, content direction, communication style, and a roadmap for growth.</p>
           </div>
         </div>
@@ -85,8 +113,8 @@
 
     <section class="section-alt">
       <div class="container">
-        <span class="eyebrow">Process</span>
-        <h2>How we work together</h2>
+        <span class="eyebrow reveal">Process</span>
+        <h2 class="reveal">How we work together</h2>
         <div class="process-steps">
           <div class="process-step reveal">
             <h3>Introduction</h3>
@@ -110,7 +138,7 @@
 
     <section style="text-align:center;">
       <div class="container">
-        <h2>Which service fits you?</h2>
+        <h2 class="reveal">Which service fits you?</h2>
         <p style="margin:0 auto 24px;">View our packages and pricing, or get in touch for a personal proposal.</p>
         <a href="/en/pricing.html" class="btn btn-primary">View packages</a>
         <a href="/en/contact.html" class="btn btn-secondary" style="margin-left: 12px;">Get in touch</a>

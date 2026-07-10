@@ -49,22 +49,34 @@
     ]
   }
   </script>
+  <!-- Google Analytics (placeholder ID, vervang G-XXXXXXXXXX na aanmaken GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
   <div id="header-placeholder"></div>
 
   <main id="main">
-    <section class="hero">
+    <section class="hero hero-home">
+      <canvas id="hero-smoke" class="hero-smoke" aria-hidden="true"></canvas>
       <div class="container hero-inner">
         <div class="hero-content reveal">
           <span class="eyebrow">Marketing Agency</span>
           <h1>Full-cycle marketing, from one creative laboratory</h1>
           <p>Content Lab combines strategy, content creation and design into a complete growth system for your brand. Not isolated actions, but a thoughtful approach.</p>
-          <a href="/en/services.html" class="btn btn-primary">Explore our services</a>
+          <div class="hero-cta">
+            <a href="/en/services.html" class="btn btn-primary">Explore our services</a>
+            <a href="/en/contact.html" class="btn btn-secondary">Schedule an introduction</a>
+          </div>
         </div>
-        <div class="hero-image reveal">
-          <img src="/assets/images/content-lab-hero-zwart-wit.webp" alt="Tetiana Shpak, founder of Content Lab" width="1000" height="1500" loading="eager">
+        <div class="hero-cutout reveal">
+          <img src="/assets/images/tetiana-cutout.webp" alt="Tetiana Shpak, founder of Content Lab" width="652" height="979" loading="eager">
         </div>
       </div>
     </section>
@@ -76,19 +88,28 @@
         <div class="usp-grid">
           <div class="usp-card reveal">
             <span class="usp-number">01</span>
-            <div class="icon-circle"><img src="/assets/icons/strategy.svg" alt="" width="28" height="28"></div>
+            <div class="icon-circle draw-icon"><svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path class="draw-path" pathLength="1" d="M24 6l4.5 9 9 1.5-6.5 6.5 1.5 9L24 27l-8 5 1.5-9L11 16.5l9-1.5z"/>
+</svg></div>
             <h3>Style</h3>
             <p>A distinctive and refined visual identity that remains consistent across every touchpoint.</p>
           </div>
           <div class="usp-card reveal">
             <span class="usp-number">02</span>
-            <div class="icon-circle"><img src="/assets/icons/growth.svg" alt="" width="28" height="28"></div>
+            <div class="icon-circle draw-icon"><svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path class="draw-path" pathLength="1" d="M14 34l-4 4M30 12l6 6M28 10l10 10-4 4-10-10z"/>
+  <path class="draw-path" pathLength="1" d="M24 14L12 26a4 4 0 0 0 0 6 4 4 0 0 0 6 0l12-12"/>
+</svg></div>
             <h3>Craftsmanship</h3>
             <p>Carefully crafted execution from concept to delivery, with attention to every detail.</p>
           </div>
           <div class="usp-card reveal">
             <span class="usp-number">03</span>
-            <div class="icon-circle"><img src="/assets/icons/creativity.svg" alt="" width="28" height="28"></div>
+            <div class="icon-circle draw-icon"><svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path class="draw-path" pathLength="1" d="M24 8a12 12 0 0 0-7 21.7c1 .7 1.5 1.4 1.5 2.8V34h11v-1.5c0-1.4.5-2.1 1.5-2.8A12 12 0 0 0 24 8z"/>
+  <line class="draw-path" pathLength="1" x1="19" y1="40" x2="29" y2="40"/>
+  <line class="draw-path" pathLength="1" x1="21" y1="44" x2="27" y2="44"/>
+</svg></div>
             <h3>Creativity</h3>
             <p>Strategic thinking combined with original ideas that create meaningful impact.</p>
           </div>
@@ -122,11 +143,49 @@
       </div>
     </section>
 
+    <!-- FAQ preview -->
+    <section>
+      <div class="container" style="max-width: 820px;">
+        <span class="eyebrow reveal">FAQ</span>
+        <h2 class="reveal">Frequently asked questions</h2>
+        <div class="faq-category" style="margin-top: 24px;">
+          <div class="faq-item reveal" data-open="false">
+            <button class="faq-question" aria-expanded="false">
+              How does the first contact work?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">
+              <p>You get in touch via the form, WhatsApp or email. We then schedule a short introductory call, free of obligation, to discuss your brand, goals and current situation.</p>
+            </div></div>
+          </div>
+          <div class="faq-item reveal" data-open="false">
+            <button class="faq-question" aria-expanded="false">
+              Can I combine packages?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">
+              <p>Yes. Many brands combine strategy with social media management, or branding with a new website. Together we'll look at what fits best.</p>
+            </div></div>
+          </div>
+          <div class="faq-item reveal" data-open="false">
+            <button class="faq-question" aria-expanded="false">
+              How is the price of a package determined?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">
+              <p>The price depends on the scope and the chosen package. Because every brand has different needs, we always discuss the investment personally.</p>
+            </div></div>
+          </div>
+        </div>
+        <p class="faq-more reveal">Don't see your question? <a href="/en/faq.html">View all frequently asked questions</a></p>
+      </div>
+    </section>
+
     <section class="section-alt">
       <div class="container" style="text-align:center;">
-        <h2>Ready to grow your brand?</h2>
-        <p style="margin:0 auto 24px;">Schedule a free introductory call and discover what Content Lab can do for your brand.</p>
-        <a href="/en/contact.html" class="btn btn-primary">Schedule an introduction</a>
+        <h2 class="reveal">Ready to grow your brand?</h2>
+        <p class="reveal" style="margin:0 auto 24px;">Schedule a free introductory call and discover what Content Lab can do for your brand.</p>
+        <a href="/en/contact.html" class="btn btn-primary reveal">Schedule an introduction</a>
       </div>
     </section>
   </main>
@@ -134,5 +193,6 @@
   <div id="footer-placeholder"></div>
   <script src="/js/script.js" defer></script>
   <script src="/js/content-loader.js" defer></script>
+  <script src="/js/smoke.js" defer></script>
 </body>
 </html>

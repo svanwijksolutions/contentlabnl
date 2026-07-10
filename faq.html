@@ -38,6 +38,14 @@
     ]
   }
   </script>
+  <!-- Google Analytics (placeholder ID, vervang G-XXXXXXXXXX na aanmaken GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Direct naar inhoud</a>
@@ -46,7 +54,7 @@
   <main id="main">
     <section class="hero" style="padding-bottom: 0;">
       <div class="container" style="max-width: 960px;">
-        <span class="eyebrow">FAQ</span>
+        <span class="eyebrow reveal">FAQ</span>
         <h1>Veelgestelde vragen</h1>
         <p>Staat je vraag er niet bij? Neem gerust contact op, we helpen je graag verder.</p>
       </div>
@@ -56,9 +64,9 @@
       <div class="container" style="max-width: 960px;">
 
         <div class="faq-category">
-          <h2>Over samenwerken</h2>
+          <h2 class="reveal">Over samenwerken</h2>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Hoe verloopt het eerste contact?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -68,7 +76,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Met wat voor bedrijven werkt Content Lab het liefst samen?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -78,7 +86,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Hoe snel kunnen jullie starten na akkoord?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -88,7 +96,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Werkt Content Lab op locatie of volledig op afstand?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -100,9 +108,9 @@
         </div>
 
         <div class="faq-category">
-          <h2>Diensten &amp; aanpak</h2>
+          <h2 class="reveal">Diensten &amp; aanpak</h2>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Wat is het verschil tussen de pakketten?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -112,7 +120,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Kan ik pakketten combineren?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -122,7 +130,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Leveren jullie ook losse projecten, of alleen doorlopende samenwerkingen?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -132,7 +140,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Hoe wordt content afgestemd op mijn merk?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -144,9 +152,9 @@
         </div>
 
         <div class="faq-category">
-          <h2>Prijzen &amp; voorwaarden</h2>
+          <h2 class="reveal">Prijzen &amp; voorwaarden</h2>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Hoe wordt de prijs van een pakket bepaald?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -156,7 +164,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Zijn er langetermijncontracten, of kan ik maandelijks opzeggen?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -166,7 +174,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Wat gebeurt er als ik niet tevreden ben met het resultaat?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -176,7 +184,7 @@
             </div></div>
           </div>
 
-          <div class="faq-item" data-open="false">
+          <div class="faq-item reveal" data-open="false">
             <button class="faq-question" aria-expanded="false">
               Bieden jullie een vrijblijvend gesprek aan voordat ik me vastleg?
               <span class="faq-icon" aria-hidden="true"></span>
@@ -192,7 +200,7 @@
 
     <section class="section-alt" style="text-align:center;">
       <div class="container">
-        <h2>Nog een vraag?</h2>
+        <h2 class="reveal">Nog een vraag?</h2>
         <p style="margin:0 auto 24px;">Neem gerust contact op, we reageren zo snel mogelijk.</p>
         <a href="/contact.html" class="btn btn-primary">Neem contact op</a>
       </div>

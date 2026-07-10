@@ -25,6 +25,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&display=swap">
 
   <link rel="stylesheet" href="/style.css">
+  <!-- Google Analytics (placeholder ID, vervang G-XXXXXXXXXX na aanmaken GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Direct naar inhoud</a>
@@ -34,9 +42,9 @@
     <section class="hero">
       <div class="container contact-grid">
         <div>
-          <span class="eyebrow">Contact</span>
+          <span class="eyebrow reveal">Contact</span>
           <h1>Laten we kennismaken</h1>
-          <p style="margin-bottom: 32px;">Heb je een vraag over onze diensten, of wil je een vrijblijvend gesprek inplannen? Vul het formulier in en we reageren zo snel mogelijk.</p>
+          <p style="margin-bottom: 32px;">Heb je een vraag over onze diensten, of wil je een vrijblijvend gesprek inplannen? Vul het formulier in en we reageren zo snel mogelijk. Of stuur ons direct een bericht via <a href="https://wa.me/31686392132?text=Hi%20Content%20Lab!%20I%20would%20like%20to%20know%20more%20about%20your%20services.%20Could%20you%20tell%20me%20more%3F" target="_blank" rel="noopener noreferrer" class="inline-wa">WhatsApp<span class="inline-wa-icon"><img src="/assets/icons/whatsapp.svg" alt="" width="16" height="16"></span></a>.</p>
 
           <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="de181cfe-2ad6-41a4-92e0-3e0b57f0c8d6">
@@ -80,15 +88,6 @@
               </a>
             </div>
           </div>
-
-          <h2 style="margin-top: 32px;">Openingstijden</h2>
-          <ul class="opening-hours-list">
-            <li>Maandag: 08:00 tot 17:00</li>
-            <li>Dinsdag: 08:00 tot 17:00</li>
-            <li>Woensdag: 08:00 tot 17:00</li>
-            <li>Donderdag: 08:00 tot 17:00</li>
-            <li>Vrijdag: 08:00 tot 17:00</li>
-          </ul>
         </div>
       </div>
     </section>
