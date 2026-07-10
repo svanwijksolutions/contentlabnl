@@ -13,11 +13,35 @@ function init() {
   loadComponents().then(() => {
     initHamburgerMenu();
     initActiveNavLink();
+    initLangDropdown();
+    initWhatsAppFooterProximity();
   });
   initFaqAccordion();
   initContactForm();
   initFooterYear();
+  initRevealAnimations();
 }
+
+// ---------- Reveal-on-scroll animaties ----------
+let revealObserver;
+function initRevealAnimations() {
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+// Wordt aangeroepen door content-loader.js nadat dynamische content is ingevoegd
+window.observeReveal = function (container) {
+  if (!revealObserver) return;
+  container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+};
 
 // ---------- Header + Footer laden via fetch() ----------
 function loadComponents() {
@@ -75,7 +99,47 @@ function initHamburgerMenu() {
   menuLinks.forEach(link => link.addEventListener('click', closeMenu));
 }
 
-// ---------- Actieve pagina markeren in navigatie ----------
+// ---------- Taal-dropdown met vlaggetjes ----------
+function initLangDropdown() {
+  const dropdowns = document.querySelectorAll('.lang-dropdown');
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.lang-dropdown-toggle');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+      dropdown.classList.toggle('open', !isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+    }
+  });
+}
+
+// ---------- WhatsApp-knop verandert van kleur nabij de footer ----------
+function initWhatsAppFooterProximity() {
+  const whatsappFloat = document.querySelector('.whatsapp-float');
+  const footer = document.querySelector('.site-footer');
+  if (!whatsappFloat || !footer) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      whatsappFloat.classList.toggle('whatsapp-on-dark', entry.isIntersecting);
+    });
+  }, { threshold: 0 });
+
+  observer.observe(footer);
+}
 function initActiveNavLink() {
   const current = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {

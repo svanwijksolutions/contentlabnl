@@ -13,8 +13,26 @@
       <a href="/en/pricing.html">Pricing</a>
       <a href="/en/blog.html">Blog</a>
       <a href="/en/faq.html">FAQ</a>
-      <a href="/en/contact.html" class="btn btn-secondary">Contact</a>
-      <a href="/index.html" class="nav-lang" hreflang="nl">NL</a>
+
+      <div class="lang-dropdown">
+        <button class="lang-dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-label="Change language">
+          <img src="/assets/icons/flag-gb.svg" alt="" width="20" height="14">
+          <span>EN</span>
+          <img src="/assets/icons/chevron-down.svg" alt="" class="chevron" width="14" height="14">
+        </button>
+        <div class="lang-dropdown-menu">
+          <a href="/index.html" class="lang-option" hreflang="nl">
+            <img src="/assets/icons/flag-nl.svg" alt="" width="20" height="14">
+            <span>Nederlands</span>
+          </a>
+          <a href="/en/index.html" class="lang-option active">
+            <img src="/assets/icons/flag-gb.svg" alt="" width="20" height="14">
+            <span>English</span>
+          </a>
+        </div>
+      </div>
+
+      <a href="/en/contact.html" class="nav-contact-btn">Contact</a>
     </nav>
 
     <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -31,6 +49,8 @@
     <a href="/en/blog.html">Blog</a>
     <a href="/en/faq.html">FAQ</a>
     <a href="/en/contact.html">Contact</a>
-    <a href="/index.html" class="nav-lang-mobile" hreflang="nl">Nederlandse versie</a>
+    <a href="/index.html" class="nav-lang-mobile" hreflang="nl">
+      <img src="/assets/icons/flag-nl.svg" alt="" width="20" height="14"> Nederlandse versie
+    </a>
   </nav>
 </header>

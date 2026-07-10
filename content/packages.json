@@ -3,40 +3,50 @@
     {
       "title_nl": "Social Media Management",
       "title_en": "Social Media Management",
-      "description_nl": "End-to-end beheer van je social media: contentplanning, creatie, copywriting, publiceren, community management en maandelijkse rapportage.",
-      "description_en": "End-to-end social media management including content planning, content creation, copywriting, publishing, community management, and performance reporting.",
+      "intro_nl": "End-to-end beheer van je social media.",
+      "intro_en": "End-to-end management of your social media.",
+      "features_nl": ["Contentplanning", "Contentcreatie", "Copywriting", "Publiceren", "Community management", "Maandelijkse rapportage"],
+      "features_en": ["Content planning", "Content creation", "Copywriting", "Publishing", "Community management", "Monthly reporting"],
       "price": "In overleg",
       "order": 1
     },
     {
       "title_nl": "Content Creation",
       "title_en": "Content Creation",
-      "description_nl": "Professionele fotografie, videografie, dronebeelden, Reels en branded content voor websites, social media en advertentiecampagnes.",
-      "description_en": "Professional photography, videography, drone footage, Reels, and branded content for websites, social media, and advertising campaigns.",
+      "intro_nl": "Professionele beeld- en videocontent voor elk kanaal.",
+      "intro_en": "Professional image and video content for every channel.",
+      "features_nl": ["Fotografie", "Videografie", "Dronebeelden", "Reels", "Branded content"],
+      "features_en": ["Photography", "Videography", "Drone footage", "Reels", "Branded content"],
       "price": "In overleg",
       "order": 2
     },
     {
       "title_nl": "Branding & Visual Identity",
       "title_en": "Branding & Visual Identity",
-      "description_nl": "Een gedenkwaardige, consistente merkidentiteit met een eigen logo, kleurpalet, typografie, visuele richtlijnen en brand assets die aansluiten bij jouw waarden.",
-      "description_en": "Create a memorable and consistent brand identity with a custom logo, color palette, typography, visual guidelines, and brand assets that reflect your business values.",
+      "intro_nl": "Een gedenkwaardige, consistente merkidentiteit.",
+      "intro_en": "A memorable, consistent brand identity.",
+      "features_nl": ["Logo-ontwerp", "Kleurpalet", "Typografie", "Visuele richtlijnen", "Brand assets"],
+      "features_en": ["Logo design", "Color palette", "Typography", "Visual guidelines", "Brand assets"],
       "price": "In overleg",
       "order": 3
     },
     {
       "title_nl": "Website Design",
       "title_en": "Website Design",
-      "description_nl": "Moderne, responsive websites die jouw bedrijf laten zien, geloofwaardigheid vergroten en bezoekers omzetten in klanten.",
-      "description_en": "Modern, responsive websites designed to showcase your business, improve credibility, and convert visitors into customers.",
+      "intro_nl": "Moderne, responsive websites die converteren.",
+      "intro_en": "Modern, responsive websites that convert.",
+      "features_nl": ["UX/UI-ontwerp", "SEO-vriendelijke structuur", "Mobiele optimalisatie", "Conversiegerichte opzet"],
+      "features_en": ["UX/UI design", "SEO-friendly structure", "Mobile optimization", "Conversion-focused setup"],
       "price": "In overleg",
       "order": 4
     },
     {
       "title_nl": "Brand Strategy & Audit",
       "title_en": "Brand Strategy & Audit",
-      "description_nl": "Elk succesvol merk begint met een heldere strategie. We analyseren je bedrijf, doelgroep, concurrenten en huidige online aanwezigheid voor een strategie op maat, inclusief positionering, contentrichting, communicatiestijl en een routekaart voor duurzame groei.",
-      "description_en": "Every successful brand starts with a clear strategy. We analyze your business, target audience, competitors, and current online presence to develop a tailored marketing and branding strategy. This includes brand positioning, content direction, communication style, and a roadmap for sustainable growth.",
+      "intro_nl": "Elk succesvol merk begint met een heldere strategie.",
+      "intro_en": "Every successful brand starts with a clear strategy.",
+      "features_nl": ["Analyse doelgroep en concurrenten", "Merkpositionering", "Contentrichting", "Communicatiestijl", "Routekaart voor groei"],
+      "features_en": ["Audience and competitor analysis", "Brand positioning", "Content direction", "Communication style", "Growth roadmap"],
       "price": "In overleg",
       "order": 5
     }

@@ -33,14 +33,27 @@
         containers.forEach(container => {
           const limit = container.getAttribute('data-limit');
           const list = limit ? items.slice(0, parseInt(limit, 10)) : items;
-          container.innerHTML = list.map(pkg => `
-            <div class="package-card">
-              <h3>${escapeHtml(isEnglish ? pkg.title_en : pkg.title_nl)}</h3>
-              <p>${escapeHtml(isEnglish ? pkg.description_en : pkg.description_nl)}</p>
-              <div class="package-price">${escapeHtml(pkg.price)}</div>
-              <a href="${isEnglish ? '/en/contact.html' : '/contact.html'}" class="btn btn-primary">${t('Neem contact op', 'Get in touch')}</a>
+          container.innerHTML = list.map((pkg, i) => {
+            const features = isEnglish ? (pkg.features_en || []) : (pkg.features_nl || []);
+            const featureItems = features.map(f => `
+              <li><img src="/assets/icons/check.svg" alt="" width="16" height="16">${escapeHtml(f)}</li>
+            `).join('');
+            return `
+            <div class="package-card reveal" style="transition-delay:${i * 80}ms">
+              <div>
+                <span class="package-number">0${i + 1}</span>
+                <h3>${escapeHtml(isEnglish ? pkg.title_en : pkg.title_nl)}</h3>
+                <p class="package-intro">${escapeHtml(isEnglish ? pkg.intro_en : pkg.intro_nl)}</p>
+                <ul class="package-features">${featureItems}</ul>
+              </div>
+              <div>
+                <div class="package-price">${escapeHtml(pkg.price)}</div>
+                <a href="${isEnglish ? '/en/contact.html' : '/contact.html'}" class="btn btn-primary">${t('Neem contact op', 'Get in touch')}</a>
+              </div>
             </div>
-          `).join('');
+          `;
+          }).join('');
+          requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
         });
       })
       .catch(() => {
@@ -58,8 +71,8 @@
       .then(data => {
         const items = data.testimonials || [];
         containers.forEach(container => {
-          container.innerHTML = items.map(tItem => `
-            <div class="testimonial-card">
+          container.innerHTML = items.map((tItem, i) => `
+            <div class="testimonial-card reveal" style="transition-delay:${i * 80}ms">
               <p class="quote">&ldquo;${escapeHtml(isEnglish ? tItem.quote_en : tItem.quote_nl)}&rdquo;</p>
               <div class="testimonial-footer">
                 ${tItem.company_logo ? `
@@ -73,6 +86,7 @@
               </div>
             </div>
           `).join('');
+          requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
         });
       })
       .catch(() => {
@@ -96,8 +110,8 @@
             container.innerHTML = `<p class="blog-empty">${t('Binnenkort meer voorbeelden van ons werk.', 'More examples of our work coming soon.')}</p>`;
             return;
           }
-          container.innerHTML = list.map(p => `
-            <div class="portfolio-card">
+          container.innerHTML = list.map((p, i) => `
+            <div class="portfolio-card reveal" style="transition-delay:${i * 80}ms">
               <img src="${escapeAttr(p.cover_image)}" alt="${escapeHtml(isEnglish ? p.title_en : p.title_nl)}" width="800" height="600" loading="lazy">
               <div class="portfolio-body">
                 <span class="portfolio-tag">${escapeHtml(p.category)}</span>
@@ -108,6 +122,7 @@
               </div>
             </div>
           `).join('');
+          requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
         });
       })
       .catch(() => {

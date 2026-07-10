@@ -18,8 +18,10 @@ collections:
           - { label: "Pakketten", name: "packages", widget: "list", summary: "{{title_nl}}", fields:
               - { label: "Titel (NL)", name: "title_nl", widget: "string" }
               - { label: "Titel (EN)", name: "title_en", widget: "string" }
-              - { label: "Beschrijving (NL)", name: "description_nl", widget: "text" }
-              - { label: "Beschrijving (EN)", name: "description_en", widget: "text" }
+              - { label: "Introzin (NL)", name: "intro_nl", widget: "string" }
+              - { label: "Introzin (EN)", name: "intro_en", widget: "string" }
+              - { label: "Kenmerken (NL)", name: "features_nl", widget: "list" }
+              - { label: "Kenmerken (EN)", name: "features_en", widget: "list" }
               - { label: "Prijs", name: "price", widget: "string", default: "In overleg" }
               - { label: "Volgorde", name: "order", widget: "number" }
             }
