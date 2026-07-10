@@ -46,14 +46,14 @@ void main(){
   col=mix(vec3(.08),col,min(time*.1,1.));
   col=clamp(col,.08,1.);
   col = 1.0 - col;
-  col = mix(u_base, col, 0.35);
+  col = mix(u_base, col, 0.55);
   O=vec4(col,1);
 }`;
 
   const vertexSrc = "#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}";
   const vertices = [-1, 1, -1, -1, 1, 1, 1, -1];
 
-  const color = [0.55, 0.50, 0.47];   // gedempte grijs-taupe rookslierten
+  const color = [0.42, 0.38, 0.35];   // donkerder grijs-taupe voor meer zichtbare rookslierten
   const base = [0.945, 0.913, 0.89];  // #F1E9E3 site-achtergrond
 
   function compile(src, type) {

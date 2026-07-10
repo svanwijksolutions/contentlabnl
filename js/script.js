@@ -8,11 +8,15 @@ function init() {
     initActiveNavLink();
     initLangDropdown();
     initWhatsAppFooterProximity();
+    // Pas NU observeren: header/footer staan inmiddels in de DOM.
+    // Eerder liep dit synchroon vóór de fetch klaar was, waardoor footer-
+    // elementen met .reveal nooit geobserveerd werden en permanent op
+    // opacity:0 bleven staan (onzichtbare footer).
+    initRevealAnimations();
   });
   initFaqAccordion();
   initContactForm();
   initFooterYear();
-  initRevealAnimations();
 }
 
 // ---------- Reveal-on-scroll animaties ----------
