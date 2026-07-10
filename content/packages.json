@@ -7,7 +7,7 @@
       "intro_en": "End-to-end management of your social media.",
       "features_nl": ["Contentplanning", "Contentcreatie", "Copywriting", "Publiceren", "Community management", "Maandelijkse rapportage"],
       "features_en": ["Content planning", "Content creation", "Copywriting", "Publishing", "Community management", "Monthly reporting"],
-      "price": "In overleg",
+      "price": "€450 / maand",
       "order": 1
     },
     {
@@ -17,7 +17,7 @@
       "intro_en": "Professional image and video content for every channel.",
       "features_nl": ["Fotografie", "Videografie", "Dronebeelden", "Reels", "Branded content"],
       "features_en": ["Photography", "Videography", "Drone footage", "Reels", "Branded content"],
-      "price": "In overleg",
+      "price": "€650",
       "order": 2
     },
     {
@@ -27,7 +27,7 @@
       "intro_en": "A memorable, consistent brand identity.",
       "features_nl": ["Logo-ontwerp", "Kleurpalet", "Typografie", "Visuele richtlijnen", "Brand assets"],
       "features_en": ["Logo design", "Color palette", "Typography", "Visual guidelines", "Brand assets"],
-      "price": "In overleg",
+      "price": "€750",
       "order": 3
     },
     {
@@ -45,9 +45,9 @@
       "title_en": "Brand Strategy & Audit",
       "intro_nl": "Elk succesvol merk begint met een heldere strategie.",
       "intro_en": "Every successful brand starts with a clear strategy.",
-      "features_nl": ["Analyse doelgroep en concurrenten", "Merkpositionering", "Contentrichting", "Communicatiestijl", "Routekaart voor groei"],
-      "features_en": ["Audience and competitor analysis", "Brand positioning", "Content direction", "Communication style", "Growth roadmap"],
-      "price": "In overleg",
+      "features_nl": ["Analyse van bedrijf en online aanwezigheid", "Analyse doelgroep en concurrenten", "Merkpositionering", "Contentrichting", "Communicatiestijl", "Routekaart voor groei"],
+      "features_en": ["Business and online presence analysis", "Audience and competitor analysis", "Brand positioning", "Content direction", "Communication style", "Growth roadmap"],
+      "price": "€500",
       "order": 5
     }
   ]

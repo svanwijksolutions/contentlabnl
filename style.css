@@ -130,6 +130,10 @@ section { padding: var(--space-5) 0; }
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready .draw-icon .draw-path { stroke-dashoffset: 0; transition: none; }
 }
+/* USP-iconen (Stijl/Vakmanschap/Creativiteit) tekenen zich langzamer: 3 seconden */
+.reveal-ready .usp-card .draw-path {
+  transition-duration: 3s;
+}
 
 /* ---------- Reveal-on-scroll animaties (progressive enhancement) ---------- */
 /* Content is ALTIJD zichtbaar. Alleen wanneer JS actief is (html.js krijgt de
@@ -391,6 +395,9 @@ body.menu-open .site-header {
   opacity: 0.75;
   pointer-events: none;
 }
+@media (max-width: 767px) {
+  .hero-smoke { opacity: 0.95; }
+}
 .hero-home .container { position: relative; z-index: 2; }
 .hero-home .hero-image img {
   border-radius: 16px;
@@ -513,6 +520,10 @@ body.menu-open .site-header {
 
 @media (min-width: 768px) {
   .packages-row { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+}
+/* Op de prijzenpagina staan alle 5 pakketten geforceerd naast elkaar (geen 6e rij) */
+@media (min-width: 1024px) {
+  .packages-wrap .packages-row { grid-template-columns: repeat(5, 1fr); }
 }
 
 /* ---------- Testimonials ---------- */
@@ -640,6 +651,8 @@ body.menu-open .site-header {
   box-shadow: 0 0 0 3px var(--color-bg-alt);
 }
 .form-field textarea { min-height: 140px; resize: vertical; }
+#form-result:empty { display: none; }
+#form-result { margin: 0; font-size: 0.9rem; }
 
 .contact-image-card {
   position: relative;
@@ -657,14 +670,17 @@ body.menu-open .site-header {
   object-position: center;
 }
 
-.contact-info-card {
+.contact-info-bar {
+  grid-column: 1 / -1;
   background: var(--color-surface);
   border-radius: 16px;
-  padding: var(--space-3);
-  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--space-2);
 }
-.contact-info-list { display: flex; flex-direction: column; gap: 4px; }
-.contact-info-list a {
+.contact-info-bar a {
   min-height: 48px;
   display: flex;
   align-items: center;
@@ -672,8 +688,8 @@ body.menu-open .site-header {
   font-weight: 700;
   transition: gap var(--transition-fast), color var(--transition-fast);
 }
-.contact-info-list a:hover { gap: 16px; color: var(--color-text-muted); }
-.contact-info-list a .contact-icon {
+.contact-info-bar a:hover { gap: 16px; color: var(--color-text-muted); }
+.contact-info-bar a .contact-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -683,7 +699,12 @@ body.menu-open .site-header {
   justify-content: center;
   flex-shrink: 0;
 }
-.contact-info-list a .contact-icon img { width: 16px; height: 16px; }
+.contact-info-bar a .contact-icon img { width: 16px; height: 16px; }
+
+@media (min-width: 768px) {
+  .contact-info-bar { flex-direction: row; justify-content: space-between; align-items: center; }
+  .contact-info-bar a { flex: 1; justify-content: center; }
+}
 .inline-wa {
   display: inline-flex;
   align-items: center;
@@ -714,7 +735,7 @@ body.menu-open .site-header {
 .footer-logo img { height: 40px; width: auto; margin-bottom: var(--space-2); }
 .footer-col-brand p { max-width: 32ch; }
 .footer-links h4 {
-  color: #FFFFFF;
+  color: var(--accent-color);
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -753,26 +774,25 @@ body.menu-open .site-header {
   padding-top: var(--space-2);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: var(--space-1);
   font-size: 0.8rem;
   opacity: 0.7;
 }
-.footer-credit {
-  text-align: center;
-  margin-top: var(--space-2);
-  padding-top: var(--space-2);
-  font-size: 0.78rem;
-  opacity: 0.65;
+.footer-bottom .footer-credit {
+  order: 3;
 }
-.footer-credit p { color: #C9C9C9; }
-.footer-credit a {
-  color: #C9C9C9;
-  transition: color var(--transition-fast);
-}
-.footer-credit a:hover { color: var(--accent-color); }
+.footer-bottom a { color: #C9C9C9; transition: color var(--transition-fast); }
+.footer-bottom a:hover { color: var(--accent-color); }
 
 @media (min-width: 768px) {
-  .footer-bottom { flex-direction: row; justify-content: space-between; }
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .footer-bottom .footer-credit { order: 0; }
 }
 
 /* ---------- WhatsApp float ---------- */
@@ -960,8 +980,7 @@ body.menu-open .site-header {
 
   .usp-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 2fr 1fr 1.3fr 1fr; }
-  .footer-bottom { flex-direction: row; justify-content: space-between; }
-  .contact-grid { grid-template-columns: 1.2fr 1fr; }
+  .contact-grid { grid-template-columns: 1.2fr 1fr; align-items: end; }
 }
 
 @media (min-width: 1200px) {
