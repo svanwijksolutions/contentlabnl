@@ -1,0 +1,36 @@
+{
+  "testimonials": [
+    {
+      "company": "NovaGroup",
+      "quote_nl": "Content Lab heeft ons geholpen onze online merkaanwezigheid naar een hoger niveau te tillen. Hun contentstrategie is helder, effectief en levert echte resultaten op. Een aanrader.",
+      "quote_en": "ContentLab helped us elevate our brand presence online. Their content strategy is clear, effective, and delivers real results. Highly recommended.",
+      "reviewer_name": "Mark Jansen",
+      "company_logo": "",
+      "company_url": ""
+    },
+    {
+      "company": "Bloom Agency",
+      "quote_nl": "Samenwerken met Content Lab was een gamechanger voor ons bedrijf. Hun creativiteit en consistentie zorgden voor een merkbare impact op onze betrokkenheid.",
+      "quote_en": "Working with ContentLab has been a game changer for our business. Their creativity and consistency made a noticeable impact on our engagement.",
+      "reviewer_name": "Sophie van Dijk",
+      "company_logo": "",
+      "company_url": ""
+    },
+    {
+      "company": "Bright Solutions",
+      "quote_nl": "Professioneel, betrouwbaar en vol goede ideeën. Content Lab begrijpt echt hoe je content omzet in groei.",
+      "quote_en": "Professional, reliable, and full of great ideas. ContentLab truly understands how to turn content into growth.",
+      "reviewer_name": "Thomas Bakker",
+      "company_logo": "",
+      "company_url": ""
+    },
+    {
+      "company": "Elevate Digital",
+      "quote_nl": "Content Lab combineert strategie en creativiteit op een manier die hen echt onderscheidt. We zien sinds de samenwerking constante groei.",
+      "quote_en": "ContentLab combines strategy and creativity in a way that truly sets them apart. We've seen consistent growth since partnering with them.",
+      "reviewer_name": "Lisa de Vries",
+      "company_logo": "",
+      "company_url": ""
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "portfolio": [
+    {
+      "title_nl": "Social media traject, voorbeeldproject",
+      "title_en": "Social media project, example",
+      "category": "Social Media",
+      "cover_image": "/assets/images/portfolio-placeholder-1.webp",
+      "description_nl": "Vervang dit voorbeelditem door een echt project: welk merk, welk vraagstuk, en welke aanpak is gevolgd.",
+      "description_en": "Replace this example item with a real project: which brand, what challenge, and which approach was taken.",
+      "result": "",
+      "link": ""
+    },
+    {
+      "title_nl": "Branding traject, voorbeeldproject",
+      "title_en": "Branding project, example",
+      "category": "Branding",
+      "cover_image": "/assets/images/portfolio-placeholder-2.webp",
+      "description_nl": "Vervang dit voorbeelditem door een echt project: welk merk, welk vraagstuk, en welke aanpak is gevolgd.",
+      "description_en": "Replace this example item with a real project: which brand, what challenge, and which approach was taken.",
+      "result": "",
+      "link": ""
+    },
+    {
+      "title_nl": "Website traject, voorbeeldproject",
+      "title_en": "Website project, example",
+      "category": "Website",
+      "cover_image": "/assets/images/portfolio-placeholder-3.webp",
+      "description_nl": "Vervang dit voorbeelditem door een echt project: welk merk, welk vraagstuk, en welke aanpak is gevolgd.",
+      "description_en": "Replace this example item with a real project: which brand, what challenge, and which approach was taken.",
+      "result": "",
+      "link": ""
+    }
+  ]
+}

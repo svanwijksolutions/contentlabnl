@@ -1,0 +1,44 @@
+{
+  "packages": [
+    {
+      "title_nl": "Social Media Management",
+      "title_en": "Social Media Management",
+      "description_nl": "End-to-end beheer van je social media: contentplanning, creatie, copywriting, publiceren, community management en maandelijkse rapportage.",
+      "description_en": "End-to-end social media management including content planning, content creation, copywriting, publishing, community management, and performance reporting.",
+      "price": "In overleg",
+      "order": 1
+    },
+    {
+      "title_nl": "Content Creation",
+      "title_en": "Content Creation",
+      "description_nl": "Professionele fotografie, videografie, dronebeelden, Reels en branded content voor websites, social media en advertentiecampagnes.",
+      "description_en": "Professional photography, videography, drone footage, Reels, and branded content for websites, social media, and advertising campaigns.",
+      "price": "In overleg",
+      "order": 2
+    },
+    {
+      "title_nl": "Branding & Visual Identity",
+      "title_en": "Branding & Visual Identity",
+      "description_nl": "Een gedenkwaardige, consistente merkidentiteit met een eigen logo, kleurpalet, typografie, visuele richtlijnen en brand assets die aansluiten bij jouw waarden.",
+      "description_en": "Create a memorable and consistent brand identity with a custom logo, color palette, typography, visual guidelines, and brand assets that reflect your business values.",
+      "price": "In overleg",
+      "order": 3
+    },
+    {
+      "title_nl": "Website Design",
+      "title_en": "Website Design",
+      "description_nl": "Moderne, responsive websites die jouw bedrijf laten zien, geloofwaardigheid vergroten en bezoekers omzetten in klanten.",
+      "description_en": "Modern, responsive websites designed to showcase your business, improve credibility, and convert visitors into customers.",
+      "price": "In overleg",
+      "order": 4
+    },
+    {
+      "title_nl": "Brand Strategy & Audit",
+      "title_en": "Brand Strategy & Audit",
+      "description_nl": "Elk succesvol merk begint met een heldere strategie. We analyseren je bedrijf, doelgroep, concurrenten en huidige online aanwezigheid voor een strategie op maat, inclusief positionering, contentrichting, communicatiestijl en een routekaart voor duurzame groei.",
+      "description_en": "Every successful brand starts with a clear strategy. We analyze your business, target audience, competitors, and current online presence to develop a tailored marketing and branding strategy. This includes brand positioning, content direction, communication style, and a roadmap for sustainable growth.",
+      "price": "In overleg",
+      "order": 5
+    }
+  ]
+}

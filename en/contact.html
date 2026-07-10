@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get in Touch | Content Lab Agency</title>
+  <meta name="description" content="Get in touch with Content Lab via the form, WhatsApp or email. We're happy to answer your questions about our services.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://[domein].nl/en/contact.html">
+  <link rel="icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <link rel="alternate" hreflang="en" href="https://[domein].nl/en/contact.html">
+  <link rel="alternate" hreflang="nl" href="https://[domein].nl/contact.html">
+
+  <meta property="og:title" content="Get in Touch | Content Lab Agency">
+  <meta property="og:description" content="Get in touch with Content Lab.">
+  <meta property="og:image" content="https://[domein].nl/assets/images/og-image.webp">
+  <meta property="og:url" content="https://[domein].nl/en/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&display=swap">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="header-placeholder"></div>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container contact-grid">
+        <div>
+          <span class="eyebrow">Contact</span>
+          <h1>Let's talk</h1>
+          <p style="margin-bottom: 32px;">Have a question about our services, or want to schedule a free call? Fill in the form and we'll get back to you as soon as possible.</p>
+
+          <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="de181cfe-2ad6-41a4-92e0-3e0b57f0c8d6">
+            <input type="hidden" name="subject" value="New message via the contact form on the Content Lab website">
+
+            <div class="form-field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name">
+            </div>
+            <div class="form-field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+            <div class="form-field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <p id="form-result" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div>
+          <img src="/assets/images/content-lab-contact-tetiana.webp" alt="Get in touch with Content Lab" width="800" height="1199" loading="lazy" style="border-radius:4px; margin-bottom: 32px;">
+
+          <div class="contact-info-list">
+            <a href="mailto:tanyashpak003@gmail.com">tanyashpak003@gmail.com</a>
+            <a href="tel:+31686392132">+31 6 86392132</a>
+            <a href="https://wa.me/31686392132?text=Hi%20Content%20Lab!%20I%20would%20like%20to%20know%20more%20about%20your%20services.%20Could%20you%20tell%20me%20more%3F" target="_blank" rel="noopener noreferrer">Send a WhatsApp message</a>
+          </div>
+
+          <h2 style="margin-top: 32px;">Opening Hours</h2>
+          <ul class="opening-hours-list">
+            <li>Monday: 08:00 – 17:00</li>
+            <li>Tuesday: 08:00 – 17:00</li>
+            <li>Wednesday: 08:00 – 17:00</li>
+            <li>Thursday: 08:00 – 17:00</li>
+            <li>Friday: 08:00 – 17:00</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="/js/script.js" defer></script>
+</body>
+</html>

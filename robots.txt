@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Disallow: /privacy.html
+Disallow: /en/privacy.html
+Disallow: /admin/
+
+# AI-zoekmachines toestaan (verplicht voor citaties)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://[domein].nl/sitemap.xml
