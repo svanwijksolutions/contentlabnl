@@ -26,6 +26,7 @@ uniform float time;
 uniform vec2 resolution;
 uniform vec3 u_color;
 uniform vec3 u_base;
+uniform float u_intensity;
 #define FC gl_FragCoord.xy
 #define R resolution
 #define T (time+660.)
@@ -46,15 +47,17 @@ void main(){
   col=mix(vec3(.08),col,min(time*.1,1.));
   col=clamp(col,.08,1.);
   col = 1.0 - col;
-  col = mix(u_base, col, 0.55);
+  col = mix(u_base, col, u_intensity);
   O=vec4(col,1);
 }`;
 
   const vertexSrc = "#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}";
   const vertices = [-1, 1, -1, -1, 1, 1, 1, -1];
 
-  const color = [0.42, 0.38, 0.35];   // donkerder grijs-taupe voor meer zichtbare rookslierten
+  const isMobile = window.innerWidth < 768;
+  const color = isMobile ? [0.30, 0.27, 0.24] : [0.42, 0.38, 0.35];
   const base = [0.945, 0.913, 0.89];  // #F1E9E3 site-achtergrond
+  const smokeIntensity = isMobile ? 0.75 : 0.55;
 
   function compile(src, type) {
     const shader = gl.createShader(type);
@@ -91,6 +94,7 @@ void main(){
   const uResolution = gl.getUniformLocation(program, 'resolution');
   const uColor = gl.getUniformLocation(program, 'u_color');
   const uBase = gl.getUniformLocation(program, 'u_base');
+  const uIntensity = gl.getUniformLocation(program, 'u_intensity');
 
   function resize() {
     const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
@@ -124,6 +128,7 @@ void main(){
     gl.uniform2f(uResolution, canvas.width, canvas.height);
     gl.uniform3fv(uColor, color);
     gl.uniform3fv(uBase, base);
+    gl.uniform1f(uIntensity, smokeIntensity);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     rafId = requestAnimationFrame(loop);
   }
