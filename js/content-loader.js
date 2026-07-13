@@ -1,24 +1,36 @@
 // ==========================================================================
 // Content Lab: js/content-loader.js
-// Rendert CMS-content (packages/testimonials/portfolio JSON) in de pagina.
+// Rendert CMS-content (packages/testimonials/portfolio/blog JSON) in de pagina.
 // Draait na DOM-load, onafhankelijk van header/footer fetch.
 // ==========================================================================
 
 (function () {
   const isEnglish = window.location.pathname.includes('/en/');
   const t = (nl, en) => (isEnglish ? en : nl);
+  const BLOG_PAGE_SIZE = 8;
 
   function run() {
     renderPackages();
     renderTestimonials();
     renderPortfolio();
     renderBlog();
+    renderBlogPost();
+    renderPortfolioDetail();
   }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else {
     run();
+  }
+
+  // ---------- Slug-hulpfunctie (voor klikbare detailpagina's, geen apart CMS-veld nodig) ----------
+  function slugify(text) {
+    return String(text || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
   }
 
   // ---------- Pakketten ----------
@@ -94,7 +106,7 @@
       });
   }
 
-  // ---------- Portfolio ----------
+  // ---------- Portfolio (grid + filter) ----------
   function renderPortfolio() {
     const containers = document.querySelectorAll('[data-render="portfolio"]');
     if (!containers.length) return;
@@ -105,24 +117,61 @@
         const items = data.portfolio || [];
         containers.forEach(container => {
           const limit = container.getAttribute('data-limit');
-          const list = limit ? items.slice(0, parseInt(limit, 10)) : items;
-          if (!list.length) {
-            container.innerHTML = `<p class="blog-empty">${t('Binnenkort meer voorbeelden van ons werk.', 'More examples of our work coming soon.')}</p>`;
-            return;
+          const full = !limit;
+
+          const allCategories = Array.from(new Set(items.flatMap(p => normalizeCategories(p.category))));
+
+          const filterBar = document.querySelector('[data-portfolio-filter]');
+          if (full && filterBar && allCategories.length) {
+            filterBar.innerHTML = [
+              `<button class="filter-pill active" data-filter="all">${t('Alles', 'All')}</button>`,
+              ...allCategories.map(c => `<button class="filter-pill" data-filter="${escapeAttr(c)}">${escapeHtml(c)}</button>`)
+            ].join('');
+
+            filterBar.querySelectorAll('.filter-pill').forEach(btn => {
+              btn.addEventListener('click', () => {
+                filterBar.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                paintPortfolio(btn.getAttribute('data-filter'));
+              });
+            });
           }
-          container.innerHTML = list.map((p, i) => `
-            <div class="portfolio-card reveal" style="transition-delay:${i * 80}ms">
-              <img src="${escapeAttr(p.cover_image)}" alt="${escapeHtml(isEnglish ? p.title_en : p.title_nl)}" width="800" height="600" loading="lazy">
-              <div class="portfolio-body">
-                <span class="portfolio-tag">${escapeHtml(p.category)}</span>
-                <h3>${escapeHtml(isEnglish ? p.title_en : p.title_nl)}</h3>
-                <p>${escapeHtml(isEnglish ? p.description_en : p.description_nl)}</p>
-                ${p.result ? `<p class="portfolio-result">${escapeHtml(p.result)}</p>` : ''}
-                ${p.link ? `<a href="${escapeAttr(p.link)}" target="_blank" rel="noopener noreferrer">${t('Bekijk project', 'View project')} &rarr;</a>` : ''}
-              </div>
-            </div>
-          `).join('');
-          requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
+
+          function paintPortfolio(activeFilter) {
+            const list = (limit ? items.slice(0, parseInt(limit, 10)) : items).filter(p => {
+              if (!activeFilter || activeFilter === 'all') return true;
+              return normalizeCategories(p.category).includes(activeFilter);
+            });
+
+            if (!list.length) {
+              container.innerHTML = `<p class="blog-empty">${t('Geen projecten in deze categorie.', 'No projects in this category.')}</p>`;
+              return;
+            }
+
+            container.innerHTML = list.map((p, i) => {
+              const slug = slugify(isEnglish ? p.title_en : p.title_nl);
+              const detailHref = `${isEnglish ? '/en/portfolio/project.html' : '/portfolio/project.html'}?slug=${encodeURIComponent(slug)}`;
+              const cats = normalizeCategories(p.category);
+              return `
+              <a class="portfolio-card reveal" href="${detailHref}" style="transition-delay:${i * 80}ms">
+                <div class="portfolio-image-wrap">
+                  <img src="${escapeAttr(p.cover_image)}" alt="${escapeHtml(isEnglish ? p.title_en : p.title_nl)}" width="800" height="600" loading="lazy">
+                  ${p.company_logo ? `<img class="portfolio-logo-badge" src="${escapeAttr(p.company_logo)}" alt="" loading="lazy">` : ''}
+                </div>
+                <div class="portfolio-body">
+                  <div class="portfolio-tags">${cats.map(c => `<span class="portfolio-tag">${escapeHtml(c)}</span>`).join('')}</div>
+                  <h3>${escapeHtml(isEnglish ? p.title_en : p.title_nl)}</h3>
+                  <p>${escapeHtml(isEnglish ? p.description_en : p.description_nl)}</p>
+                  ${p.result ? `<p class="portfolio-result">${escapeHtml(p.result)}</p>` : ''}
+                  <span class="portfolio-view-link">${t('Bekijk project', 'View project')} &rarr;</span>
+                </div>
+              </a>
+            `;
+            }).join('');
+            requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
+          }
+
+          paintPortfolio('all');
         });
       })
       .catch(() => {
@@ -130,24 +179,89 @@
       });
   }
 
-  // ---------- Blog ----------
+  function normalizeCategories(category) {
+    if (!category) return [];
+    return Array.isArray(category) ? category : [category];
+  }
+
+  // ---------- Portfolio detailpagina ----------
+  function renderPortfolioDetail() {
+    const container = document.querySelector('[data-render="portfolio-detail"]');
+    if (!container) return;
+
+    const slug = new URLSearchParams(window.location.search).get('slug');
+
+    fetch('/content/portfolio.json')
+      .then(r => r.json())
+      .then(data => {
+        const items = data.portfolio || [];
+        const item = items.find(p => slugify(isEnglish ? p.title_en : p.title_nl) === slug);
+
+        if (!item) {
+          container.innerHTML = `
+            <div class="detail-not-found">
+              <h1>${t('Project niet gevonden', 'Project not found')}</h1>
+              <p>${t('Dit project bestaat niet (meer).', 'This project no longer exists.')}</p>
+              <a href="${isEnglish ? '/en/portfolio/' : '/portfolio/'}" class="btn btn-primary">${t('Terug naar portfolio', 'Back to portfolio')}</a>
+            </div>`;
+          return;
+        }
+
+        const cats = normalizeCategories(item.category);
+        document.title = `${isEnglish ? item.title_en : item.title_nl} | Content Lab`;
+
+        container.innerHTML = `
+          <a href="${isEnglish ? '/en/portfolio/' : '/portfolio/'}" class="detail-back">&larr; ${t('Terug naar portfolio', 'Back to portfolio')}</a>
+          <div class="detail-tags">${cats.map(c => `<span class="portfolio-tag">${escapeHtml(c)}</span>`).join('')}</div>
+          <h1>${escapeHtml(isEnglish ? item.title_en : item.title_nl)}</h1>
+          ${item.company_logo ? `<img class="detail-company-logo" src="${escapeAttr(item.company_logo)}" alt="" loading="lazy">` : ''}
+          <img class="detail-cover-image" src="${escapeAttr(item.cover_image)}" alt="${escapeHtml(isEnglish ? item.title_en : item.title_nl)}" loading="eager">
+          <p class="detail-description">${escapeHtml(isEnglish ? item.description_en : item.description_nl)}</p>
+          ${item.result ? `<p class="portfolio-result detail-result">${escapeHtml(item.result)}</p>` : ''}
+          ${item.link ? `<a href="${escapeAttr(item.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">${t('Bekijk live project', 'View live project')} &rarr;</a>` : ''}
+        `;
+      })
+      .catch(() => {
+        container.innerHTML = `<p>${t('Project kon niet worden geladen.', 'Project could not be loaded.')}</p>`;
+      });
+  }
+
+  // ---------- Blog (lijst + paginering) ----------
   function renderBlog() {
-    const containers = document.querySelectorAll('[data-render="blog"]');
-    if (!containers.length) return;
+    const container = document.querySelector('[data-render="blog"]');
+    if (!container) return;
 
     fetch('/content/blog.json')
       .then(r => r.json())
       .then(data => {
         const items = (data.posts || []).sort((a, b) => new Date(b.date) - new Date(a.date));
-        containers.forEach(container => {
-          if (!items.length) {
-            container.innerHTML = `<p class="blog-empty">${t('Binnenkort de eerste artikelen. Kom snel terug!', 'The first articles are coming soon. Check back shortly!')}</p>`;
-            return;
-          }
-          container.innerHTML = items.map(post => {
+
+        if (!items.length) {
+          container.innerHTML = `<p class="blog-empty">${t('Binnenkort de eerste artikelen. Kom snel terug!', 'The first articles are coming soon. Check back shortly!')}</p>`;
+          return;
+        }
+
+        const totalPages = Math.max(1, Math.ceil(items.length / BLOG_PAGE_SIZE));
+        let currentPage = 1;
+
+        let pager = document.querySelector('[data-blog-pager]');
+        if (!pager) {
+          pager = document.createElement('div');
+          pager.setAttribute('data-blog-pager', '');
+          pager.className = 'blog-pager';
+          container.insertAdjacentElement('afterend', pager);
+        }
+
+        function paint() {
+          const start = (currentPage - 1) * BLOG_PAGE_SIZE;
+          const pageItems = items.slice(start, start + BLOG_PAGE_SIZE);
+
+          container.innerHTML = pageItems.map((post, i) => {
             const dateStr = post.date ? new Date(post.date).toLocaleDateString(isEnglish ? 'en-GB' : 'nl-NL', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+            const slug = slugify(isEnglish ? post.title_en : post.title_nl);
+            const href = `${isEnglish ? '/en/blog/post.html' : '/blog/post.html'}?slug=${encodeURIComponent(slug)}`;
             return `
-              <a class="blog-card" href="#">
+              <a class="blog-card reveal" href="${href}" style="transition-delay:${i * 60}ms">
                 ${post.cover_image ? `<img src="${escapeAttr(post.cover_image)}" alt="${escapeHtml(isEnglish ? post.title_en : post.title_nl)}" width="400" height="200" loading="lazy">` : ''}
                 <div class="blog-body">
                   <span class="blog-date">${dateStr}</span>
@@ -156,10 +270,79 @@
               </a>
             `;
           }).join('');
-        });
+          requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
+
+          if (totalPages > 1) {
+            let pagerHtml = `<button class="pager-btn" data-page="prev" ${currentPage === 1 ? 'disabled' : ''} aria-label="${t('Vorige pagina', 'Previous page')}">&larr;</button>`;
+            for (let p = 1; p <= totalPages; p++) {
+              pagerHtml += `<button class="pager-btn pager-num${p === currentPage ? ' active' : ''}" data-page="${p}">${p}</button>`;
+            }
+            pagerHtml += `<button class="pager-btn" data-page="next" ${currentPage === totalPages ? 'disabled' : ''} aria-label="${t('Volgende pagina', 'Next page')}">&rarr;</button>`;
+            pager.innerHTML = pagerHtml;
+
+            pager.querySelectorAll('.pager-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const val = btn.getAttribute('data-page');
+                if (val === 'prev') currentPage = Math.max(1, currentPage - 1);
+                else if (val === 'next') currentPage = Math.min(totalPages, currentPage + 1);
+                else currentPage = parseInt(val, 10);
+                paint();
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              });
+            });
+          } else {
+            pager.innerHTML = '';
+          }
+        }
+
+        paint();
       })
       .catch(() => {
-        containers.forEach(c => { c.innerHTML = `<p>${t('Blog kon niet worden geladen.', 'Blog could not be loaded.')}</p>`; });
+        container.innerHTML = `<p>${t('Blog kon niet worden geladen.', 'Blog could not be loaded.')}</p>`;
+      });
+  }
+
+  // ---------- Blog detailpagina ----------
+  function renderBlogPost() {
+    const container = document.querySelector('[data-render="blog-post"]');
+    if (!container) return;
+
+    const slug = new URLSearchParams(window.location.search).get('slug');
+
+    fetch('/content/blog.json')
+      .then(r => r.json())
+      .then(data => {
+        const items = data.posts || [];
+        const post = items.find(p => slugify(isEnglish ? p.title_en : p.title_nl) === slug);
+
+        if (!post) {
+          container.innerHTML = `
+            <div class="detail-not-found">
+              <h1>${t('Artikel niet gevonden', 'Article not found')}</h1>
+              <p>${t('Dit artikel bestaat niet (meer).', 'This article no longer exists.')}</p>
+              <a href="${isEnglish ? '/en/blog/' : '/blog/'}" class="btn btn-primary">${t('Terug naar blog', 'Back to blog')}</a>
+            </div>`;
+          return;
+        }
+
+        const dateStr = post.date ? new Date(post.date).toLocaleDateString(isEnglish ? 'en-GB' : 'nl-NL', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+        const bodyMd = (isEnglish ? post.body_en : post.body_nl) || '';
+        const bodyHtml = (window.marked && typeof window.marked.parse === 'function')
+          ? window.marked.parse(bodyMd)
+          : `<p>${escapeHtml(bodyMd)}</p>`;
+
+        document.title = `${isEnglish ? post.title_en : post.title_nl} | Content Lab`;
+
+        container.innerHTML = `
+          <a href="${isEnglish ? '/en/blog/' : '/blog/'}" class="detail-back">&larr; ${t('Terug naar blog', 'Back to blog')}</a>
+          <span class="blog-date">${dateStr}</span>
+          <h1>${escapeHtml(isEnglish ? post.title_en : post.title_nl)}</h1>
+          ${post.cover_image ? `<img class="detail-cover-image" src="${escapeAttr(post.cover_image)}" alt="${escapeHtml(isEnglish ? post.title_en : post.title_nl)}" loading="eager">` : ''}
+          <div class="blog-post-body">${bodyHtml}</div>
+        `;
+      })
+      .catch(() => {
+        container.innerHTML = `<p>${t('Artikel kon niet worden geladen.', 'Article could not be loaded.')}</p>`;
       });
   }
 

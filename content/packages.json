@@ -5,23 +5,9 @@
       "title_en": "Social Media Management",
       "intro_nl": "End-to-end beheer van je social media.",
       "intro_en": "End-to-end management of your social media.",
-      "features_nl": [
-        "Contentplanning",
-        "Contentcreatie",
-        "Copywriting",
-        "Publiceren",
-        "Community management",
-        "Maandelijkse rapportage"
-      ],
-      "features_en": [
-        "Content planning",
-        "Content creation",
-        "Copywriting",
-        "Publishing",
-        "Community management",
-        "Monthly reporting"
-      ],
-      "price": "€475 / maand",
+      "features_nl": ["Contentplanning", "Contentcreatie", "Copywriting", "Publiceren", "Community management", "Maandelijkse rapportage"],
+      "features_en": ["Content planning", "Content creation", "Copywriting", "Publishing", "Community management", "Monthly reporting"],
+      "price": "€450 / maand",
       "order": 1
     },
     {
@@ -29,20 +15,8 @@
       "title_en": "Content Creation",
       "intro_nl": "Professionele beeld- en videocontent voor elk kanaal.",
       "intro_en": "Professional image and video content for every channel.",
-      "features_nl": [
-        "Fotografie",
-        "Videografie",
-        "Dronebeelden",
-        "Reels",
-        "Branded content"
-      ],
-      "features_en": [
-        "Photography",
-        "Videography",
-        "Drone footage",
-        "Reels",
-        "Branded content"
-      ],
+      "features_nl": ["Fotografie", "Videografie", "Dronebeelden", "Reels", "Branded content"],
+      "features_en": ["Photography", "Videography", "Drone footage", "Reels", "Branded content"],
       "price": "€650",
       "order": 2
     },
@@ -51,20 +25,8 @@
       "title_en": "Branding & Visual Identity",
       "intro_nl": "Een gedenkwaardige, consistente merkidentiteit.",
       "intro_en": "A memorable, consistent brand identity.",
-      "features_nl": [
-        "Logo-ontwerp",
-        "Kleurpalet",
-        "Typografie",
-        "Visuele richtlijnen",
-        "Brand assets"
-      ],
-      "features_en": [
-        "Logo design",
-        "Color palette",
-        "Typography",
-        "Visual guidelines",
-        "Brand assets"
-      ],
+      "features_nl": ["Logo-ontwerp", "Kleurpalet", "Typografie", "Visuele richtlijnen", "Brand assets"],
+      "features_en": ["Logo design", "Color palette", "Typography", "Visual guidelines", "Brand assets"],
       "price": "€750",
       "order": 3
     },
@@ -73,18 +35,8 @@
       "title_en": "Website Design",
       "intro_nl": "Moderne, responsive websites die converteren.",
       "intro_en": "Modern, responsive websites that convert.",
-      "features_nl": [
-        "UX/UI-ontwerp",
-        "SEO-vriendelijke structuur",
-        "Mobiele optimalisatie",
-        "Conversiegerichte opzet"
-      ],
-      "features_en": [
-        "UX/UI design",
-        "SEO-friendly structure",
-        "Mobile optimization",
-        "Conversion-focused setup"
-      ],
+      "features_nl": ["UX/UI-ontwerp", "SEO-vriendelijke structuur", "Mobiele optimalisatie", "Conversiegerichte opzet"],
+      "features_en": ["UX/UI design", "SEO-friendly structure", "Mobile optimization", "Conversion-focused setup"],
       "price": "In overleg",
       "order": 4
     },
@@ -93,22 +45,8 @@
       "title_en": "Brand Strategy & Audit",
       "intro_nl": "Elk succesvol merk begint met een heldere strategie.",
       "intro_en": "Every successful brand starts with a clear strategy.",
-      "features_nl": [
-        "Analyse van bedrijf en online aanwezigheid",
-        "Analyse doelgroep en concurrenten",
-        "Merkpositionering",
-        "Contentrichting",
-        "Communicatiestijl",
-        "Routekaart voor groei"
-      ],
-      "features_en": [
-        "Business and online presence analysis",
-        "Audience and competitor analysis",
-        "Brand positioning",
-        "Content direction",
-        "Communication style",
-        "Growth roadmap"
-      ],
+      "features_nl": ["Analyse van bedrijf en online aanwezigheid", "Analyse doelgroep en concurrenten", "Merkpositionering", "Contentrichting", "Communicatiestijl", "Routekaart voor groei"],
+      "features_en": ["Business and online presence analysis", "Audience and competitor analysis", "Brand positioning", "Content direction", "Communication style", "Growth roadmap"],
       "price": "€500",
       "order": 5
     }

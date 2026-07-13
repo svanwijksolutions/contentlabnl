@@ -4,30 +4,32 @@ backend:
   branch: main
   base_url: https://contentlabnl-cms.sem-f7d.workers.dev
 
+locale: en
+
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
 collections:
   - name: "packages"
-    label: "Pakketten"
+    label: "Packages"
     files:
       - name: "packages"
-        label: "Pakketten"
+        label: "Packages"
         file: "content/packages.json"
         fields:
-          - label: "Pakketten"
+          - label: "Packages"
             name: "packages"
             widget: "list"
             summary: "{{title_nl}}"
             fields:
-              - { label: "Titel (NL)", name: "title_nl", widget: "string" }
-              - { label: "Titel (EN)", name: "title_en", widget: "string" }
-              - { label: "Introzin (NL)", name: "intro_nl", widget: "string" }
-              - { label: "Introzin (EN)", name: "intro_en", widget: "string" }
-              - { label: "Kenmerken (NL)", name: "features_nl", widget: "list" }
-              - { label: "Kenmerken (EN)", name: "features_en", widget: "list" }
-              - { label: "Prijs", name: "price", widget: "string", default: "In overleg" }
-              - { label: "Volgorde", name: "order", widget: "number" }
+              - { label: "Title (NL)", name: "title_nl", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Intro (NL)", name: "intro_nl", widget: "string" }
+              - { label: "Intro (EN)", name: "intro_en", widget: "string" }
+              - { label: "Features (NL)", name: "features_nl", widget: "list" }
+              - { label: "Features (EN)", name: "features_en", widget: "list" }
+              - { label: "Price", name: "price", widget: "string", default: "In overleg" }
+              - { label: "Order", name: "order", widget: "number" }
 
   - name: "testimonials"
     label: "Testimonials"
@@ -41,12 +43,12 @@ collections:
             widget: "list"
             summary: "{{company}}"
             fields:
-              - { label: "Bedrijfsnaam", name: "company", widget: "string" }
+              - { label: "Company name", name: "company", widget: "string" }
               - { label: "Quote (NL)", name: "quote_nl", widget: "text" }
               - { label: "Quote (EN)", name: "quote_en", widget: "text" }
-              - { label: "Naam beoordelaar", name: "reviewer_name", widget: "string" }
-              - { label: "Bedrijfslogo", name: "company_logo", widget: "image", required: false }
-              - { label: "Website-URL", name: "company_url", widget: "string", required: false }
+              - { label: "Reviewer name", name: "reviewer_name", widget: "string" }
+              - { label: "Company logo", name: "company_logo", widget: "image", required: false }
+              - { label: "Website URL", name: "company_url", widget: "string", required: false }
 
   - name: "portfolio"
     label: "Portfolio"
@@ -55,28 +57,31 @@ collections:
         label: "Portfolio"
         file: "content/portfolio.json"
         fields:
-          - label: "Projecten"
+          - label: "Projects"
             name: "portfolio"
             widget: "list"
             summary: "{{title_nl}}"
             fields:
-              - { label: "Projectnaam (NL)", name: "title_nl", widget: "string" }
-              - { label: "Projectnaam (EN)", name: "title_en", widget: "string" }
-              - label: "Categorie"
+              - { label: "Project name (NL)", name: "title_nl", widget: "string" }
+              - { label: "Project name (EN)", name: "title_en", widget: "string" }
+              - label: "Category"
                 name: "category"
                 widget: "select"
+                multiple: true
+                min: 1
                 options: ["Social Media", "Branding", "Website", "Content"]
-              - { label: "Cover-afbeelding", name: "cover_image", widget: "image" }
-              - { label: "Beschrijving (NL)", name: "description_nl", widget: "text" }
-              - { label: "Beschrijving (EN)", name: "description_en", widget: "text" }
-              - { label: "Resultaat (optioneel)", name: "result", widget: "string", required: false }
-              - { label: "Link (optioneel)", name: "link", widget: "string", required: false }
+              - { label: "Cover image", name: "cover_image", widget: "image" }
+              - { label: "Company logo", name: "company_logo", widget: "image", required: false, hint: "Shown directly on the portfolio card" }
+              - { label: "Description (NL)", name: "description_nl", widget: "text" }
+              - { label: "Description (EN)", name: "description_en", widget: "text" }
+              - { label: "Result (optional)", name: "result", widget: "string", required: false }
+              - { label: "Link (optional)", name: "link", widget: "string", required: false }
 
   - name: "blog"
     label: "Blog"
     files:
       - name: "blog"
-        label: "Blogposts"
+        label: "Blog posts"
         file: "content/blog.json"
         fields:
           - label: "Posts"
@@ -84,9 +89,9 @@ collections:
             widget: "list"
             summary: "{{title_nl}}"
             fields:
-              - { label: "Titel (NL)", name: "title_nl", widget: "string" }
-              - { label: "Titel (EN)", name: "title_en", widget: "string" }
-              - { label: "Coverafbeelding", name: "cover_image", widget: "image" }
-              - { label: "Publicatiedatum", name: "date", widget: "datetime" }
-              - { label: "Inhoud (NL)", name: "body_nl", widget: "markdown" }
-              - { label: "Inhoud (EN)", name: "body_en", widget: "markdown" }
+              - { label: "Title (NL)", name: "title_nl", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Cover image", name: "cover_image", widget: "image" }
+              - { label: "Publish date", name: "date", widget: "datetime" }
+              - { label: "Content (NL)", name: "body_nl", widget: "markdown" }
+              - { label: "Content (EN)", name: "body_en", widget: "markdown" }
