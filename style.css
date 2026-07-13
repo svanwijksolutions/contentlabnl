@@ -609,17 +609,12 @@ body.menu-open .site-header {
 .portfolio-image-wrap { position: relative; }
 .portfolio-card img { width: 100%; height: 260px; object-fit: cover; }
 .portfolio-card .portfolio-body { padding: var(--space-2); }
-.portfolio-logo-badge {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  width: 44px;
-  height: 44px;
+.portfolio-logo-inline {
+  height: 32px;
+  width: auto;
+  max-width: 120px;
   object-fit: contain;
-  background: #FFFFFF;
-  border-radius: 8px;
-  padding: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: var(--space-1);
 }
 .portfolio-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--space-1); }
 .portfolio-tag {
