@@ -15,7 +15,11 @@ collections:
         label: "Pakketten"
         file: "content/packages.json"
         fields:
-          - { label: "Pakketten", name: "packages", widget: "list", summary: "{{title_nl}}", fields:
+          - label: "Pakketten"
+            name: "packages"
+            widget: "list"
+            summary: "{{title_nl}}"
+            fields:
               - { label: "Titel (NL)", name: "title_nl", widget: "string" }
               - { label: "Titel (EN)", name: "title_en", widget: "string" }
               - { label: "Introzin (NL)", name: "intro_nl", widget: "string" }
@@ -24,7 +28,6 @@ collections:
               - { label: "Kenmerken (EN)", name: "features_en", widget: "list" }
               - { label: "Prijs", name: "price", widget: "string", default: "In overleg" }
               - { label: "Volgorde", name: "order", widget: "number" }
-            }
 
   - name: "testimonials"
     label: "Testimonials"
@@ -33,14 +36,17 @@ collections:
         label: "Testimonials"
         file: "content/testimonials.json"
         fields:
-          - { label: "Testimonials", name: "testimonials", widget: "list", summary: "{{company}}", fields:
+          - label: "Testimonials"
+            name: "testimonials"
+            widget: "list"
+            summary: "{{company}}"
+            fields:
               - { label: "Bedrijfsnaam", name: "company", widget: "string" }
               - { label: "Quote (NL)", name: "quote_nl", widget: "text" }
               - { label: "Quote (EN)", name: "quote_en", widget: "text" }
               - { label: "Naam beoordelaar", name: "reviewer_name", widget: "string" }
               - { label: "Bedrijfslogo", name: "company_logo", widget: "image", required: false }
               - { label: "Website-URL", name: "company_url", widget: "string", required: false }
-            }
 
   - name: "portfolio"
     label: "Portfolio"
@@ -49,7 +55,11 @@ collections:
         label: "Portfolio"
         file: "content/portfolio.json"
         fields:
-          - { label: "Projecten", name: "portfolio", widget: "list", summary: "{{title_nl}}", fields:
+          - label: "Projecten"
+            name: "portfolio"
+            widget: "list"
+            summary: "{{title_nl}}"
+            fields:
               - { label: "Projectnaam (NL)", name: "title_nl", widget: "string" }
               - { label: "Projectnaam (EN)", name: "title_en", widget: "string" }
               - label: "Categorie"
@@ -61,7 +71,6 @@ collections:
               - { label: "Beschrijving (EN)", name: "description_en", widget: "text" }
               - { label: "Resultaat (optioneel)", name: "result", widget: "string", required: false }
               - { label: "Link (optioneel)", name: "link", widget: "string", required: false }
-            }
 
   - name: "blog"
     label: "Blog"
@@ -70,11 +79,14 @@ collections:
         label: "Blogposts"
         file: "content/blog.json"
         fields:
-          - { label: "Posts", name: "posts", widget: "list", summary: "{{title_nl}}", fields:
+          - label: "Posts"
+            name: "posts"
+            widget: "list"
+            summary: "{{title_nl}}"
+            fields:
               - { label: "Titel (NL)", name: "title_nl", widget: "string" }
               - { label: "Titel (EN)", name: "title_en", widget: "string" }
               - { label: "Coverafbeelding", name: "cover_image", widget: "image" }
               - { label: "Publicatiedatum", name: "date", widget: "datetime" }
               - { label: "Inhoud (NL)", name: "body_nl", widget: "markdown" }
               - { label: "Inhoud (EN)", name: "body_en", widget: "markdown" }
-            }
