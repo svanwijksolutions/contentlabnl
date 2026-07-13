@@ -158,9 +158,11 @@
                   <img src="${escapeAttr(p.cover_image)}" alt="${escapeHtml(isEnglish ? p.title_en : p.title_nl)}" width="800" height="600" loading="lazy">
                 </div>
                 <div class="portfolio-body">
-                  ${p.company_logo ? `<img class="portfolio-logo-inline" src="${escapeAttr(p.company_logo)}" alt="" loading="lazy">` : ''}
                   <div class="portfolio-tags">${cats.map(c => `<span class="portfolio-tag">${escapeHtml(c)}</span>`).join('')}</div>
-                  <h3>${escapeHtml(isEnglish ? p.title_en : p.title_nl)}</h3>
+                  <div class="portfolio-title-row">
+                    ${p.company_logo ? `<img class="portfolio-logo-inline" src="${escapeAttr(p.company_logo)}" alt="">` : ''}
+                    <h3>${escapeHtml(isEnglish ? p.title_en : p.title_nl)}</h3>
+                  </div>
                   <p>${escapeHtml(isEnglish ? p.description_en : p.description_nl)}</p>
                   ${p.result ? `<p class="portfolio-result">${escapeHtml(p.result)}</p>` : ''}
                   <span class="portfolio-view-link">${t('Bekijk project', 'View project')} &rarr;</span>

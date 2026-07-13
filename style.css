@@ -607,15 +607,21 @@ body.menu-open .site-header {
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 .portfolio-image-wrap { position: relative; }
-.portfolio-card img { width: 100%; height: 260px; object-fit: cover; }
+.portfolio-image-wrap img { width: 100%; height: 260px; object-fit: cover; }
 .portfolio-card .portfolio-body { padding: var(--space-2); }
-.portfolio-logo-inline {
-  height: 32px;
-  width: auto;
-  max-width: 120px;
-  object-fit: contain;
-  margin-bottom: var(--space-1);
+.portfolio-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+.portfolio-body img.portfolio-logo-inline {
+  height: 22px;
+  width: auto;
+  max-width: 60px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.portfolio-title-row h3 { margin: 0; }
 .portfolio-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--space-1); }
 .portfolio-tag {
   display: inline-block;
