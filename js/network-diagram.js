@@ -9,6 +9,17 @@
   const mount = document.getElementById('networkDiagram');
   if (!mount) return;
 
+  try {
+    renderNetworkDiagram(mount);
+  } catch (err) {
+    // Iets ging mis: laat de sectie leeg/verborgen ipv een kapotte halve
+    // weergave, en meld het in de console voor onszelf, niet voor de bezoeker.
+    console.error('network-diagram.js: kon diagram niet renderen', err);
+    mount.closest('.network-diagram-section')?.style.setProperty('display', 'none');
+  }
+})();
+
+function renderNetworkDiagram(mount) {
   const isEnglish = window.location.pathname.includes('/en/');
 
   const topIconsNL = [
@@ -92,17 +103,34 @@
     </div>
   `;
 
-  // Responsive: schaal het vaste 1300x700-canvas naar de beschikbare breedte
+  // Responsive: schaal het vaste 1300x700-canvas naar de beschikbare breedte.
+  // Robuust tegen een meting van 0px vlak na het laden (kan op mobiel gebeuren
+  // vóór lettertypen/CSS volledig zijn toegepast) — anders zou het hele
+  // diagram onzichtbaar worden (scale 0), precies het soort bug dat we
+  // elders in dit project ook al tegenkwamen en altijd willen voorkomen.
   const scaleWrap = mount.querySelector('.nd-scale-wrap');
   const canvas = mount.querySelector('.nd-canvas');
 
   function applyScale() {
     const available = mount.clientWidth;
+    // Te kleine/onbetrouwbare meting: nog niet toepassen, later opnieuw proberen.
+    if (available < 50) return false;
     const scale = Math.min(1, available / W);
     canvas.style.transform = `scale(${scale})`;
     scaleWrap.style.height = (H * scale) + 'px';
+    return true;
   }
 
-  applyScale();
+  // Eerste poging direct.
+  if (!applyScale()) {
+    // Meting mislukte: probeer opnieuw op het eerstvolgende animatieframe,
+    // en nog een keer kort daarna als extra vangnet.
+    requestAnimationFrame(() => {
+      if (!applyScale()) setTimeout(applyScale, 300);
+    });
+  }
+  // Ook na volledige page-load nog een keer toepassen (fonts/afbeeldingen
+  // kunnen de layout na de eerste meting nog verschoven hebben).
+  window.addEventListener('load', applyScale);
   window.addEventListener('resize', applyScale);
-})();
+}
