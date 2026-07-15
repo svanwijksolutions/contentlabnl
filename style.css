@@ -720,12 +720,26 @@ body.menu-open .site-header {
 .blog-post-body a { text-decoration: underline; }
 
 /* ---------- Netwerkdiagram (homepage) ---------- */
+/* Werkt volledig op CSS aspect-ratio + percentages, geen JavaScript-meting
+   nodig om te schalen. Dit is bewust zo gebouwd: een eerdere versie gebruikte
+   canvas.clientWidth + transform:scale() in JS, wat op sommige mobiele
+   toestellen een onbetrouwbare meting gaf waardoor het diagram op ware
+   grootte bleef staan en grotendeels buiten beeld viel. Percentages binnen
+   een vaste-beeldverhouding-container schalen native mee in elke browser,
+   op elk apparaat, zonder enige timing-afhankelijkheid. */
 .network-diagram-section { overflow: hidden; }
 #networkDiagram { width: 100%; }
-.nd-scale-wrap { position: relative; }
-.nd-canvas { position: relative; transform-origin: top center; margin: 0 auto; }
 
-.nd-line { fill: none; stroke: var(--color-border); stroke-width: 2.5; opacity: 0; }
+.nd-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1300 / 700;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.nd-lines-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.nd-line { fill: none; stroke: var(--color-border); stroke-width: 2.5; opacity: 0; vector-effect: non-scaling-stroke; }
 .nd-line.top { stroke-dasharray: 900; stroke-dashoffset: 900; animation: nd-dash 1.8s ease-out forwards; }
 .nd-line.bottom { stroke-dasharray: 900; stroke-dashoffset: -900; animation: nd-dash-reversed 1.8s ease-out forwards; }
 @keyframes nd-dash { to { stroke-dashoffset: 0; opacity: 0.5; } }
@@ -733,7 +747,7 @@ body.menu-open .site-header {
 
 .nd-dot-path {
   fill: none; stroke-linecap: round; stroke-dasharray: 1 90; stroke-width: 4.5;
-  opacity: 0; stroke: var(--accent-color);
+  opacity: 0; stroke: var(--accent-color); vector-effect: non-scaling-stroke;
   filter: drop-shadow(0 0 4px rgba(138,133,128,0.5)) drop-shadow(0 0 8px rgba(138,133,128,0.25));
   animation: nd-fade-in 2s ease-in forwards;
 }
@@ -742,32 +756,43 @@ body.menu-open .site-header {
 @keyframes nd-fade-in { to { opacity: 0.8; } }
 
 .nd-node {
-  position: absolute; width: 104px; height: 104px;
-  background: var(--color-surface); border-radius: 20px;
+  position: absolute;
+  /* width/height/left/top komen als inline-percentage mee vanuit de JS,
+     bewust NIET hier vastgezet, dat zou de responsive werking breken. */
+  min-width: 34px; min-height: 34px;
+  background: var(--color-surface); border-radius: 18%;
   box-shadow: 0 10px 26px rgba(0,0,0,0.08);
   display:flex; align-items:center; justify-content:center;
   opacity: 0; transform: translateY(16px);
   animation: nd-node-in 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards;
 }
-.nd-badge { width: 60px; height: 60px; border-radius: 16px; display:flex; align-items:center; justify-content:center; }
+.nd-badge {
+  width: 58%; height: 58%; border-radius: 30%;
+  display:flex; align-items:center; justify-content:center;
+}
 .nd-badge.nd-dark { background: linear-gradient(155deg, var(--color-dark), #050506); }
 .nd-badge.nd-light { background: linear-gradient(155deg, var(--color-bg), var(--color-bg-alt)); border:1px solid var(--color-border); }
-.nd-node svg { width: 30px; height: 30px; }
+.nd-badge svg { width: 50%; height: 50%; }
 @keyframes nd-node-in { to { opacity:1; transform:translateY(0); } }
 
-.nd-hub { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width: 140px; height:140px; z-index:5; display:flex; align-items:center; justify-content:center; }
+.nd-hub {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width: 10.77%; height: 20%;
+  min-width: 44px; min-height: 44px;
+  z-index:5; display:flex; align-items:center; justify-content:center;
+}
 .nd-pulse-ring { position:absolute; inset:0; border-radius:50%; background: rgba(138,133,128,0.12); border: 1px solid rgba(138,133,128,0.25); animation: nd-pulse 4s linear infinite; }
 .nd-pulse-ring.r2 { animation-delay: 1.3s; }
 .nd-pulse-ring.r3 { animation-delay: 2.6s; }
 @keyframes nd-pulse { 0% { transform: scale(0.6); opacity:0; } 30% { opacity:0.9; } 100% { transform: scale(2.1); opacity:0; } }
 .nd-hub-logo {
-  position:relative; z-index:2; width:96px; height:96px; border-radius:26px;
+  position:relative; z-index:2; width:100%; height:100%; border-radius:24%;
   background: linear-gradient(155deg, var(--color-dark), #050506);
   box-shadow: 0 20px 44px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
   display:flex; align-items:center; justify-content:center;
   opacity:0; animation: nd-hub-in 1s cubic-bezier(0.34,1.56,0.64,1) 1.8s forwards;
 }
-.nd-hub-logo img { width:56px; height:auto; display:block; }
+.nd-hub-logo img { width:56%; height:auto; display:block; }
 @keyframes nd-hub-in { to { opacity:1; } }
 
 @media (prefers-reduced-motion: reduce) {
