@@ -1011,11 +1011,13 @@ body.menu-open .site-header {
 
 @media (min-width: 768px) {
   .footer-bottom {
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     text-align: left;
   }
-  .footer-bottom .footer-credit { order: 0; }
+  .footer-bottom .footer-credit { order: 0; text-align: center; }
+  .footer-bottom p:last-child { text-align: right; }
 }
 
 /* ---------- WhatsApp float ---------- */
