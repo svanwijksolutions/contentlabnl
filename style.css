@@ -460,16 +460,6 @@ body.menu-open .site-header {
   transform: translateY(-8px) !important;
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
-.usp-card .usp-number {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-3);
-  font-family: var(--font-heading);
-  font-size: 3rem;
-  color: var(--color-bg-alt);
-  line-height: 1;
-  z-index: 0;
-}
 .usp-card .icon-circle {
   width: 64px;
   height: 64px;
@@ -527,14 +517,6 @@ body.menu-open .site-header {
   box-shadow: 0 28px 56px rgba(0,0,0,0.14);
   border-color: var(--color-dark);
   z-index: 2;
-}
-.package-card .package-number {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.1em;
-  display: block;
-  margin-bottom: 6px;
 }
 .package-card h3 { margin-bottom: 8px; font-size: 1.3rem; }
 .package-card .package-intro { color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: var(--space-2); }
