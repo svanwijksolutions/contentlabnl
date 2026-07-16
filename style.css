@@ -528,14 +528,6 @@ body.menu-open .site-header {
   border-color: var(--color-dark);
   z-index: 2;
 }
-.package-card .package-number {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.1em;
-  display: block;
-  margin-bottom: 6px;
-}
 .package-card h3 { margin-bottom: 8px; font-size: 1.3rem; }
 .package-card .package-intro { color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: var(--space-2); }
 .package-card .package-features {

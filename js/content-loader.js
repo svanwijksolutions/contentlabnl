@@ -53,7 +53,6 @@
             return `
             <div class="package-card reveal" style="transition-delay:${i * 80}ms">
               <div>
-                <span class="package-number">0${i + 1}</span>
                 <h3>${escapeHtml(isEnglish ? pkg.title_en : pkg.title_nl)}</h3>
                 <p class="package-intro">${escapeHtml(isEnglish ? pkg.intro_en : pkg.intro_nl)}</p>
                 <ul class="package-features">${featureItems}</ul>
