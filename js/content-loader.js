@@ -7,7 +7,7 @@
 (function () {
   const isEnglish = window.location.pathname.includes('/en/');
   const t = (nl, en) => (isEnglish ? en : nl);
-  const BLOG_PAGE_SIZE = 8;
+  const BLOG_PAGE_SIZE = 15;
 
   function run() {
     renderPackages();
@@ -59,7 +59,6 @@
                 <ul class="package-features">${featureItems}</ul>
               </div>
               <div>
-                <div class="package-price">${escapeHtml(pkg.price)}</div>
                 <a href="${isEnglish ? '/en/contact.html' : '/contact.html'}" class="btn btn-primary">${t('Neem contact op', 'Get in touch')}</a>
               </div>
             </div>
@@ -233,28 +232,73 @@
     const container = document.querySelector('[data-render="blog"]');
     if (!container) return;
 
+    const searchInput = document.querySelector('[data-blog-search]');
+
     fetch('/content/blog.json')
       .then(r => r.json())
       .then(data => {
-        const items = (data.posts || []).sort((a, b) => new Date(b.date) - new Date(a.date));
+        const allItems = (data.posts || []).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        if (!items.length) {
+        if (!allItems.length) {
           container.innerHTML = `<p class="blog-empty">${t('Binnenkort de eerste artikelen. Kom snel terug!', 'The first articles are coming soon. Check back shortly!')}</p>`;
           return;
         }
 
-        const totalPages = Math.max(1, Math.ceil(items.length / BLOG_PAGE_SIZE));
         let currentPage = 1;
+        let items = allItems;
 
-        let pager = document.querySelector('[data-blog-pager]');
-        if (!pager) {
-          pager = document.createElement('div');
-          pager.setAttribute('data-blog-pager', '');
-          pager.className = 'blog-pager';
-          container.insertAdjacentElement('afterend', pager);
+        const pagerBottom = ensurePager('afterend');
+        const pagerTop = document.querySelector('[data-blog-pager-top]');
+
+        function ensurePager(position) {
+          let p = document.querySelector('[data-blog-pager]');
+          if (!p) {
+            p = document.createElement('div');
+            p.setAttribute('data-blog-pager', '');
+            p.className = 'blog-pager';
+            container.insertAdjacentElement(position, p);
+          }
+          return p;
+        }
+
+        function matchesSearch(post, query) {
+          if (!query) return true;
+          const haystack = [post.title_nl, post.title_en, post.body_nl, post.body_en].join(' ').toLowerCase();
+          return haystack.includes(query.toLowerCase());
+        }
+
+        function renderPagerInto(el, totalPages) {
+          if (!el) return;
+          if (totalPages <= 1) { el.innerHTML = ''; return; }
+          let html = `<button class="pager-btn" data-page="prev" ${currentPage === 1 ? 'disabled' : ''} aria-label="${t('Vorige pagina', 'Previous page')}">&larr;</button>`;
+          for (let p = 1; p <= totalPages; p++) {
+            html += `<button class="pager-btn pager-num${p === currentPage ? ' active' : ''}" data-page="${p}">${p}</button>`;
+          }
+          html += `<button class="pager-btn" data-page="next" ${currentPage === totalPages ? 'disabled' : ''} aria-label="${t('Volgende pagina', 'Next page')}">&rarr;</button>`;
+          el.innerHTML = html;
+          el.querySelectorAll('.pager-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const val = btn.getAttribute('data-page');
+              if (val === 'prev') currentPage = Math.max(1, currentPage - 1);
+              else if (val === 'next') currentPage = Math.min(totalPages, currentPage + 1);
+              else currentPage = parseInt(val, 10);
+              paint();
+              container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+          });
         }
 
         function paint() {
+          const totalPages = Math.max(1, Math.ceil(items.length / BLOG_PAGE_SIZE));
+          currentPage = Math.min(currentPage, totalPages);
+
+          if (!items.length) {
+            container.innerHTML = `<p class="blog-empty">${t('Geen artikelen gevonden voor deze zoekopdracht.', 'No articles found for this search.')}</p>`;
+            renderPagerInto(pagerTop, 0);
+            renderPagerInto(pagerBottom, 0);
+            return;
+          }
+
           const start = (currentPage - 1) * BLOG_PAGE_SIZE;
           const pageItems = items.slice(start, start + BLOG_PAGE_SIZE);
 
@@ -263,38 +307,28 @@
             const slug = slugify(isEnglish ? post.title_en : post.title_nl);
             const href = `${isEnglish ? '/en/blog/post.html' : '/blog/post.html'}?slug=${encodeURIComponent(slug)}`;
             return `
-              <a class="blog-card reveal" href="${href}" style="transition-delay:${i * 60}ms">
-                ${post.cover_image ? `<img src="${escapeAttr(post.cover_image)}" alt="${escapeHtml(isEnglish ? post.title_en : post.title_nl)}" width="400" height="200" loading="lazy">` : ''}
+              <a class="blog-card reveal" href="${href}" style="transition-delay:${(i % BLOG_PAGE_SIZE) * 40}ms">
+                ${post.cover_image ? `<img src="${escapeAttr(post.cover_image)}" alt="${escapeHtml(isEnglish ? post.title_en : post.title_nl)}" width="400" height="400" loading="lazy">` : ''}
                 <div class="blog-body">
-                  <span class="blog-date">${dateStr}</span>
                   <h3>${escapeHtml(isEnglish ? post.title_en : post.title_nl)}</h3>
+                  <span class="blog-date">${dateStr}</span>
                 </div>
               </a>
             `;
           }).join('');
           requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
 
-          if (totalPages > 1) {
-            let pagerHtml = `<button class="pager-btn" data-page="prev" ${currentPage === 1 ? 'disabled' : ''} aria-label="${t('Vorige pagina', 'Previous page')}">&larr;</button>`;
-            for (let p = 1; p <= totalPages; p++) {
-              pagerHtml += `<button class="pager-btn pager-num${p === currentPage ? ' active' : ''}" data-page="${p}">${p}</button>`;
-            }
-            pagerHtml += `<button class="pager-btn" data-page="next" ${currentPage === totalPages ? 'disabled' : ''} aria-label="${t('Volgende pagina', 'Next page')}">&rarr;</button>`;
-            pager.innerHTML = pagerHtml;
+          renderPagerInto(pagerTop, totalPages);
+          renderPagerInto(pagerBottom, totalPages);
+        }
 
-            pager.querySelectorAll('.pager-btn').forEach(btn => {
-              btn.addEventListener('click', () => {
-                const val = btn.getAttribute('data-page');
-                if (val === 'prev') currentPage = Math.max(1, currentPage - 1);
-                else if (val === 'next') currentPage = Math.min(totalPages, currentPage + 1);
-                else currentPage = parseInt(val, 10);
-                paint();
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              });
-            });
-          } else {
-            pager.innerHTML = '';
-          }
+        if (searchInput) {
+          searchInput.addEventListener('input', () => {
+            const q = searchInput.value.trim();
+            items = allItems.filter(p => matchesSearch(p, q));
+            currentPage = 1;
+            paint();
+          });
         }
 
         paint();
