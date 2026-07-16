@@ -1008,6 +1008,7 @@ body.menu-open .site-header {
 }
 .footer-bottom a { color: #C9C9C9; transition: color var(--transition-fast); }
 .footer-bottom a:hover { color: var(--accent-color); }
+.footer-bottom p { max-width: none; }
 
 @media (min-width: 768px) {
   .footer-bottom {
@@ -1058,6 +1059,66 @@ body.menu-open .site-header {
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 .whatsapp-float.whatsapp-on-dark img { filter: invert(0); }
+
+/* ---------- Cookiemelding ---------- */
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  background: var(--color-dark);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding: var(--space-2);
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cookie-banner.cookie-banner-visible { transform: translateY(0); }
+.cookie-banner-inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.cookie-banner p {
+  max-width: none;
+  color: #C9C9C9;
+  font-size: 0.85rem;
+  margin: 0;
+}
+.cookie-banner a { color: #FFF; text-decoration: underline; }
+.cookie-banner-actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+.cookie-banner-actions .btn { padding: 10px 20px; font-size: 0.8rem; }
+.cookie-banner-actions .btn-secondary { color: #FFF; border-color: rgba(255,255,255,0.4); }
+.cookie-banner-actions .btn-secondary:hover { background: rgba(255,255,255,0.1); color: #FFF; }
+body.cookie-banner-open .whatsapp-float { display: none; }
+@media (min-width: 768px) {
+  .cookie-banner-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+  .cookie-banner-actions { flex-wrap: nowrap; }
+}
+
+/* ---------- 404-pagina ---------- */
+.not-found {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+.not-found-code {
+  font-size: clamp(5rem, 18vw, 10rem);
+  line-height: 1;
+  color: var(--color-border);
+  margin: var(--space-2) 0;
+}
 
 /* ---------- Privacy page ---------- */
 .privacy-page h2 { margin-top: var(--space-4); margin-bottom: var(--space-1); }
