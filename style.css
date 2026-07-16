@@ -460,16 +460,6 @@ body.menu-open .site-header {
   transform: translateY(-8px) !important;
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
-.usp-card .usp-number {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-3);
-  font-family: var(--font-heading);
-  font-size: 3rem;
-  color: var(--color-bg-alt);
-  line-height: 1;
-  z-index: 0;
-}
 .usp-card .icon-circle {
   width: 64px;
   height: 64px;
