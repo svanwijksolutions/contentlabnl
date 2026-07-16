@@ -197,10 +197,19 @@ function initWhatsAppFooterProximity() {
   update();
 }
 function initActiveNavLink() {
-  const current = window.location.pathname.split('/').pop() || 'index.html';
+  // Volledige pad-vergelijking, met een trailing slash altijd genormaliseerd
+  // weggehaald aan beide kanten. De oude aanpak (alleen het laatste stukje na
+  // de laatste "/" vergelijken) faalde bij mappagina's als /blog/ of
+  // /portfolio/: dat laatste stukje is dan een lege string, wat per ongeluk
+  // altijd op "Home" terugviel.
+  let current = window.location.pathname;
+  if (current.length > 1 && current.endsWith('/')) current = current.slice(0, -1);
+
   document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && href.split('/').pop() === current) {
+    let href = link.getAttribute('href');
+    if (!href) return;
+    if (href.length > 1 && href.endsWith('/')) href = href.slice(0, -1);
+    if (href === current) {
       link.setAttribute('aria-current', 'page');
     }
   });
