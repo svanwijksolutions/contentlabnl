@@ -27,6 +27,7 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { 'analytics_storage': localStorage.getItem('cookie_consent') === 'accepted' ? 'granted' : 'denied' });
     gtag('js', new Date());
     gtag('config', 'G-XXXXXXXXXX');
   </script>
@@ -82,6 +83,15 @@
 
         <h2>Klacht indienen</h2>
         <p>Als je van mening bent dat we je persoonsgegevens onjuist verwerken, kun je een klacht indienen bij de <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener noreferrer">Autoriteit Persoonsgegevens</a>.</p>
+
+        <h2>Cookies</h2>
+        <p>Deze website gebruikt de volgende cookies:</p>
+        <table>
+          <tr><th>Cookie</th><th>Type</th><th>Doel</th></tr>
+          <tr><td>Google Analytics</td><td>Analytisch (niet noodzakelijk)</td><td>Bijhouden van bezoekersstatistieken. Wordt pas geplaatst na jouw toestemming.</td></tr>
+        </table>
+        <p>Bij je eerste bezoek vragen we via een melding onderaan de pagina om toestemming voor analytische cookies. Je kunt je keuze op elk moment wijzigen via de knop hieronder.</p>
+        <p><button type="button" id="cookie-settings-btn" class="btn btn-secondary">Cookievoorkeuren aanpassen</button></p>
       </div>
     </section>
   </main>
