@@ -1125,30 +1125,91 @@ body.menu-open .site-header {
   .service-text p { margin: 0; }
 }
 
-/* ---------- Werkproces stappen ---------- */
+/* ---------- Werkproces tijdlijn ---------- */
 .process-steps {
+  position: relative;
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-4);
   grid-template-columns: 1fr;
   counter-reset: step;
+  margin-top: var(--space-3);
 }
 .process-step {
-  background: var(--color-surface);
-  padding: var(--space-3);
-  border-radius: var(--radius-card);
   position: relative;
+  padding-left: 56px;
+  min-height: 40px;
 }
 .process-step::before {
   counter-increment: step;
   content: counter(step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
-  font-size: 2rem;
-  color: var(--color-border);
-  display: block;
-  margin-bottom: var(--space-1);
+  font-size: 1.1rem;
+  z-index: 1;
 }
+.process-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 19px;
+  width: 2px;
+  height: calc(100% - 40px + var(--space-4));
+  background: var(--color-border);
+}
+.process-step:nth-child(1) { transition-delay: 0ms; }
+.process-step:nth-child(2) { transition-delay: 150ms; }
+.process-step:nth-child(3) { transition-delay: 300ms; }
+.process-step:nth-child(4) { transition-delay: 450ms; }
+
 @media (min-width: 768px) {
-  .process-steps { grid-template-columns: repeat(4, 1fr); }
+  .process-steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 19px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: var(--color-border);
+  }
+  .process-step {
+    padding-left: 0;
+    padding-top: 56px;
+    text-align: center;
+  }
+  .process-step::before {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .process-step::after {
+    display: none;
+  }
+  .reveal-ready .process-step {
+    transform: translateX(-24px);
+  }
+  .reveal-ready .process-step.reveal-visible {
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready .process-step,
+  .reveal-ready .process-step.reveal-visible {
+    transform: none;
+  }
 }
 
 .service-text h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
@@ -1158,6 +1219,7 @@ body.menu-open .site-header {
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 4px;
+  padding-top: 6px;
 }
 
 /* ---------- Blog ---------- */
