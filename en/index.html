@@ -82,13 +82,42 @@
       </div>
     </section>
 
-    <!-- Network diagram: what we offer + what it delivers -->
-    <section class="network-diagram-section">
-      <div class="container" style="text-align:center; margin-bottom: 24px;">
+    <!-- Stats -->
+    <!-- TODO: align figures with client -->
+    <section class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <strong class="stat-num"><span data-count="250">0</span></strong>
+          <span class="stat-suffix">+</span>
+          <span class="stat-label">Content items created</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-num"><span data-count="15">0</span></strong>
+          <span class="stat-suffix">+</span>
+          <span class="stat-label">Brands helped</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-num">&lt;<span data-count="24">0</span></strong>
+          <span class="stat-suffix">h</span>
+          <span class="stat-label">Response time</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-num"><span data-count="100">0</span></strong>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Custom work, no templates</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orbit: what we offer + what it delivers -->
+    <section class="orbit-section">
+      <div class="container" style="margin-bottom: 24px;">
         <span class="eyebrow reveal">Everything under one roof</span>
         <h2 class="reveal">From idea to result</h2>
       </div>
-      <div id="networkDiagram" aria-hidden="true"></div>
+      <div class="orbit-wrap">
+        <div class="orbit" id="orbit" aria-hidden="true"></div>
+      </div>
     </section>
 
     <section class="section-alt">
@@ -135,20 +164,55 @@
       </div>
     </section>
 
-    <section class="section-alt">
-      <div class="container">
-        <span class="eyebrow">Services</span>
-        <h2>How we can help</h2>
-        <div class="packages-row" data-render="packages" data-limit="3"></div>
-        <a href="/en/services.html" class="btn btn-secondary" style="margin-top: 32px;">View all packages</a>
+    <!-- Services overview: horizontal package scroll -->
+    <section class="hscroll-section">
+      <div class="hscroll-pin">
+        <div class="hscroll-head">
+          <span class="eyebrow">Services</span>
+          <h2>How we can help</h2>
+        </div>
+        <div class="hscroll-track">
+          <div class="hscroll-card">
+            <div class="icon-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="24" r="4"/><circle cx="36" cy="12" r="4"/><circle cx="36" cy="36" r="4"/><line x1="13.5" y1="22" x2="32.5" y2="14"/><line x1="13.5" y1="26" x2="32.5" y2="34"/></svg></div>
+            <h3>Social Media Management</h3>
+            <p>End-to-end management of your social media.</p>
+            <a href="/en/services.html">More about this package &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <div class="icon-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16h6l3-4h14l3 4h6a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V18a2 2 0 0 1 2-2z"/><circle cx="24" cy="27" r="7"/></svg></div>
+            <h3>Content Creation</h3>
+            <p>Professional image and video content for every channel.</p>
+            <a href="/en/services.html">More about this package &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <div class="icon-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 8l10 10-18 18-10 2 2-10z"/><line x1="26" y1="12" x2="36" y2="22"/></svg></div>
+            <h3>Branding &amp; Visual Identity</h3>
+            <p>A memorable, consistent brand identity.</p>
+            <a href="/en/services.html">More about this package &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <div class="icon-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="36" height="24" rx="2"/><line x1="6" y1="17" x2="42" y2="17"/><line x1="18" y1="40" x2="30" y2="40"/><line x1="24" y1="34" x2="24" y2="40"/></svg></div>
+            <h3>Website Design</h3>
+            <p>Modern, responsive websites that convert.</p>
+            <a href="/en/services.html">More about this package &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <div class="icon-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 34 18 22 26 30 42 12"/><polyline points="30 12 42 12 42 24"/></svg></div>
+            <h3>Brand Strategy &amp; Audit</h3>
+            <p>Every successful brand starts with a clear strategy.</p>
+            <a href="/en/services.html">More about this package &rarr;</a>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Testimonials -->
     <section>
       <div class="container">
-        <span class="eyebrow">What clients say</span>
-        <h2>Brands on working with us</h2>
-        <div class="testimonials-grid" data-render="testimonials"></div>
+        <span class="eyebrow reveal">What clients say</span>
+        <h2 class="reveal">Brands on working with us</h2>
+        <div class="quotes-slider" id="clQuotes" data-render="testimonials"></div>
+        <div class="quote-dots" id="clQuoteDots" role="tablist" aria-label="Testimonials"></div>
       </div>
     </section>
 
@@ -203,6 +267,5 @@
   <script src="/js/script.js" defer></script>
   <script src="/js/content-loader.js" defer></script>
   <script src="/js/smoke.js" defer></script>
-  <script src="/js/network-diagram.js" defer></script>
 </body>
 </html>
