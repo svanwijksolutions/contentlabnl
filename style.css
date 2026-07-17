@@ -733,15 +733,18 @@ body.menu-open .site-header {
   aspect-ratio: 1;
 }
 .orbit-core {
-  position: absolute; inset: 34%;
+  position: absolute; inset: 30%;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   box-shadow: 0 24px 60px -20px rgba(26,26,26,0.18);
-  padding: 14%;
 }
-.orbit-core img { max-width: 60%; max-height: 60%; object-fit: contain; }
+/* Geen percentage-padding op .orbit-core: dat zou resolven t.o.v. de breedte
+   van het containing block (.orbit), niet t.o.v. de eigen (kleinere) omvang
+   van de cirkel na `inset`, en dus veel te veel ruimte opeten. De marge komt
+   daarom puur uit de breedte/hoogte van het logo zelf. */
+.orbit-core img { width: 76%; height: 76%; object-fit: contain; }
 .orbit-lane { position: absolute; border-radius: 50%; border: 1.5px dashed var(--color-border); }
 .orbit-lane.l1 { inset: 15%; }
 .orbit-lane.l2 { inset: 0; }
@@ -774,7 +777,8 @@ body.menu-open .site-header {
 .services-marquee {
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg-alt);
+  background: #DDD9D7;
+  background: color-mix(in srgb, var(--accent-color) 22%, var(--color-bg));
   overflow: hidden;
   white-space: nowrap;
   padding: var(--space-2) 0;
@@ -814,7 +818,7 @@ body.menu-open .site-header {
 @media (min-width: 768px) {
   .stats-grid { grid-template-columns: repeat(4, 1fr); }
 }
-.stat-item { padding: var(--space-4) var(--space-2); text-align: center; position: relative; }
+.stat-item { padding: var(--space-3) var(--space-2); text-align: center; position: relative; }
 .stat-item + .stat-item::before {
   content: ''; position: absolute; left: 0; top: 25%; height: 50%; width: 1px; background: var(--color-border);
 }
@@ -826,11 +830,11 @@ body.menu-open .site-header {
   line-height: 1;
   color: var(--color-text);
 }
-.stat-suffix { display: block; margin-top: 4px; font-family: var(--font-heading); font-size: 1.2rem; color: var(--accent-color); }
+.stat-suffix { display: block; margin-top: 4px; font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-dark); }
 .stat-label { display: block; margin-top: 10px; color: var(--color-text-muted); font-size: 0.85rem; }
 
 /* ---------- Horizontale pakketten-scroll (homepage) ---------- */
-.hscroll-section { height: 340vh; position: relative; }
+.hscroll-section { height: 200vh; position: relative; }
 .hscroll-pin {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
   display: flex; flex-direction: column; justify-content: center; gap: var(--space-3);
@@ -839,8 +843,8 @@ body.menu-open .site-header {
 .hscroll-track { display: flex; gap: var(--space-3); padding: 0 6vw; will-change: transform; }
 .hscroll-card {
   flex: none;
-  width: min(360px, 78vw);
-  height: min(400px, 56vh);
+  width: min(380px, 80vw);
+  height: min(440px, 62vh);
   border-radius: 16px;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -853,7 +857,7 @@ body.menu-open .site-header {
 .hscroll-card .icon-circle { width: 56px; height: 56px; margin-bottom: auto; }
 .hscroll-card .icon-circle svg { width: 28px; height: 28px; }
 .hscroll-card h3 { font-size: 1.25rem; }
-.hscroll-card p { color: var(--color-text-muted); font-size: 0.92rem; }
+.hscroll-card p { color: var(--color-text-muted); font-size: 0.92rem; line-height: 1.5; }
 .hscroll-card a {
   font-size: 0.85rem; font-weight: 700; color: var(--color-text);
   margin-top: 4px; display: inline-flex; gap: 6px;
@@ -866,7 +870,7 @@ body.menu-open .site-header {
 }
 
 /* ---------- Tekst-scrub (diensten-pagina) ---------- */
-.tscrub-section { height: 220vh; position: relative; }
+.tscrub-section { height: 160vh; position: relative; }
 .tscrub-pin { position: sticky; top: 0; height: 100vh; display: grid; place-items: center; padding: 0 var(--space-2); }
 .tscrub-pin p {
   max-width: 24ch; text-align: center;
