@@ -492,10 +492,10 @@ function initHscrollAndTscrub() {
     }
     if (tscrub && words.length) {
       const p = sectionProgress(tscrub);
-      // Woorden zijn volledig gekleurd bij 65% scrollvoortgang (niet pas bij
+      // Woorden zijn volledig gekleurd bij 45% scrollvoortgang (niet pas bij
       // 100%), zodat het effect eerder "klaar" is en er geen lege scrollruimte
       // overblijft waarin alle tekst al gekleurd is maar de sectie nog doorloopt.
-      const active = Math.min(words.length, Math.ceil((p / 0.65) * words.length));
+      const active = Math.min(words.length, Math.ceil((p / 0.45) * words.length));
       words.forEach((w, i) => w.classList.toggle('on', i < active));
     }
     ticking = false;
