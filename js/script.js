@@ -499,6 +499,17 @@ function initHscrollAndTscrub() {
     const total = section.offsetHeight - window.innerHeight;
     return total > 0 ? clamp01(-rect.top / total) : 0;
   }
+  // Tekst-scrub heeft geen sticky/100vh-pin (dat maakte de sectie altijd
+  // schermvullend): de inkleuring volgt gewoon de natuurlijke positie van
+  // de tekst terwijl die door het beeld scrollt, tussen 85% en 30% van de
+  // viewporthoogte. Dat garandeert dat de tekst altijd volledig ingekleurd
+  // ís tegen de tijd dat hij het midden van het scherm nadert.
+  function tscrubProgress(el) {
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const start = vh * 0.85, end = vh * 0.3;
+    return clamp01((start - rect.top) / (start - end));
+  }
 
   let ticking = false;
   function renderAll() {
@@ -514,11 +525,8 @@ function initHscrollAndTscrub() {
       htrack.style.transform = 'translateX(' + (-p * max) + 'px)';
     }
     if (tscrub && words.length) {
-      const p = sectionProgress(tscrub);
-      // Woorden zijn volledig gekleurd bij 30% scrollvoortgang (niet pas bij
-      // 100%), zodat het effect eerder "klaar" is en er geen lege scrollruimte
-      // overblijft waarin alle tekst al gekleurd is maar de sectie nog doorloopt.
-      const active = Math.min(words.length, Math.ceil((p / 0.3) * words.length));
+      const p = tscrubProgress(tscrubText);
+      const active = Math.min(words.length, Math.ceil(p * words.length));
       words.forEach((w, i) => w.classList.toggle('on', i < active));
     }
     ticking = false;
