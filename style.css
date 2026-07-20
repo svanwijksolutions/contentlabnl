@@ -786,13 +786,12 @@ body.menu-open .site-header {
   margin: -26px 0 0 -26px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 10px 26px -10px rgba(26,26,26,0.2);
+  background: linear-gradient(155deg, var(--accent-color), #6E6A65);
+  box-shadow: 0 12px 24px -8px rgba(138,133,128,0.55);
   animation: orbit-spin 34s linear infinite reverse;
 }
 .orbit-spin.l2 .orbit-sat { animation-duration: 50s; }
-.orbit-sat svg { width: 22px; height: 22px; color: var(--accent-color); }
+.orbit-sat svg { width: 22px; height: 22px; color: #FFFFFF; }
 @media (min-width: 768px) {
   .orbit-sat { width: 58px; height: 58px; margin: -29px 0 0 -29px; }
   .orbit-sat svg { width: 26px; height: 26px; }
@@ -896,21 +895,25 @@ body.menu-open .site-header {
 }
 
 /* ---------- Tekst-scrub (diensten-pagina) ---------- */
-.tscrub-section { height: 112vh; position: relative; padding: 0; }
-.tscrub-pin { position: sticky; top: 0; height: 100vh; display: grid; place-items: center; padding: 0 var(--space-2); }
+/* Bewust GEEN sticky/100vh-pin: dat maakte de sectie altijd schermvullend
+   rond een korte zin, hoe kort de scrollafstand ook was. In plaats daarvan
+   is dit een normale, compacte sectie; de inkleuring volgt gewoon de
+   natuurlijke scrollpositie van de tekst zelf terwijl die voorbijkomt. */
+.tscrub-section { padding: var(--space-5) 0; }
+.tscrub-pin { display: grid; place-items: center; padding: 0 var(--space-2); }
 .tscrub-pin p {
-  max-width: 26ch; text-align: center;
+  max-width: 60ch; text-align: center;
   font-family: var(--font-body); font-weight: 400;
-  font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.35;
+  font-size: clamp(1.4rem, 3.4vw, 2.4rem); line-height: 1.4;
 }
-.tscrub-word { color: var(--color-border); font-weight: 400; transition: color 0.25s ease, font-weight 0.25s ease; }
+.tscrub-word {
+  color: var(--color-border); font-weight: 400;
+  transition: color 0.25s ease, font-weight 0.25s ease;
+}
+/* Alle tekst (ook het gemarkeerde deel) wordt gelijk dikgedrukt/zwart
+   zodra actief - geen aparte kleur of onderstreping meer, dat werd als
+   verwarrend/onopvallend ervaren. */
 .tscrub-word.on { color: var(--color-text); font-weight: 700; }
-.tscrub-word.hl.on { color: var(--accent-color); }
-@media (prefers-reduced-motion: reduce) {
-  .tscrub-section { height: auto; }
-  .tscrub-pin { position: relative; height: auto; padding: var(--space-5) 0; }
-  .tscrub-word { color: var(--color-text); }
-}
 .faq-category { margin-bottom: var(--space-4); }
 .faq-item {
   border-bottom: 1px solid var(--color-border);
