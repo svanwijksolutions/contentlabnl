@@ -71,7 +71,10 @@
       });
   }
 
-  // ---------- Testimonials ----------
+  // ---------- Testimonials (slider) ----------
+  // Elk CMS-item wordt één <figure class="quote-item">; js/script.js
+  // (window.initQuoteSlider) telt de items en bouwt de dots, dus elk
+  // aantal testimonials uit het CMS werkt zonder aanpassing hier.
   function renderTestimonials() {
     const containers = document.querySelectorAll('[data-render="testimonials"]');
     if (!containers.length) return;
@@ -82,22 +85,19 @@
         const items = data.testimonials || [];
         containers.forEach(container => {
           container.innerHTML = items.map((tItem, i) => `
-            <div class="testimonial-card reveal" style="transition-delay:${i * 80}ms">
-              <p class="quote">&ldquo;${escapeHtml(isEnglish ? tItem.quote_en : tItem.quote_nl)}&rdquo;</p>
-              <div class="testimonial-footer">
+            <figure class="quote-item${i === 0 ? ' active' : ''}">
+              <blockquote>${escapeHtml(isEnglish ? tItem.quote_en : tItem.quote_nl)}</blockquote>
+              <figcaption>
                 ${tItem.company_logo ? `
                   <a href="${escapeAttr(tItem.company_url || '#')}" target="_blank" rel="noopener noreferrer">
                     <img class="company-logo" src="${escapeAttr(tItem.company_logo)}" alt="${escapeHtml(tItem.company)}" width="90" height="24" loading="lazy">
                   </a>` : ''}
-                <div>
-                  <div><strong>${escapeHtml(tItem.reviewer_name)}</strong></div>
-                  <div class="testimonial-name">${escapeHtml(tItem.company)}</div>
-                </div>
-              </div>
-            </div>
+                <cite><b>${escapeHtml(tItem.reviewer_name)}</b>${escapeHtml(tItem.company)}</cite>
+              </figcaption>
+            </figure>
           `).join('');
-          requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
         });
+        if (typeof window.initQuoteSlider === 'function') window.initQuoteSlider();
       })
       .catch(() => {
         containers.forEach(c => { c.innerHTML = `<p>${t('Testimonials konden niet worden geladen.', 'Testimonials could not be loaded.')}</p>`; });

@@ -83,13 +83,42 @@
       </div>
     </section>
 
-    <!-- Netwerkdiagram: wat we bieden + wat het oplevert -->
-    <section class="network-diagram-section">
-      <div class="container" style="text-align:center; margin-bottom: 24px;">
+    <!-- Tellers -->
+    <!-- TODO: cijfers afstemmen met klant -->
+    <section class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <strong class="stat-num"><span data-count="250">0</span></strong>
+          <span class="stat-suffix">+</span>
+          <span class="stat-label">Contentitems gemaakt</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-num"><span data-count="15">0</span></strong>
+          <span class="stat-suffix">+</span>
+          <span class="stat-label">Merken geholpen</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-num">&lt;<span data-count="24">0</span></strong>
+          <span class="stat-suffix">u</span>
+          <span class="stat-label">Reactietijd</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-num"><span data-count="100">0</span></strong>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Maatwerk, geen templates</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orbit: wat we bieden + wat het oplevert -->
+    <section class="orbit-section">
+      <div class="container" style="margin-bottom: 24px;">
         <span class="eyebrow reveal">Alles onder één dak</span>
         <h2 class="reveal">Van idee tot resultaat</h2>
       </div>
-      <div id="networkDiagram" aria-hidden="true"></div>
+      <div class="orbit-wrap">
+        <div class="orbit" id="orbit" aria-hidden="true"></div>
+      </div>
     </section>
 
     <!-- USP -->
@@ -138,22 +167,50 @@
       </div>
     </section>
 
-    <!-- Aanbod-overzicht -->
-    <section class="section-alt">
-      <div class="container">
-        <span class="eyebrow">Diensten</span>
-        <h2>Waar we je mee helpen</h2>
-        <div class="packages-row" data-render="packages" data-limit="3"></div>
-        <a href="/diensten.html" class="btn btn-secondary" style="margin-top: 32px;">Bekijk alle pakketten</a>
+    <!-- Aanbod-overzicht: horizontale pakketten-scroll -->
+    <section class="hscroll-section">
+      <div class="hscroll-pin">
+        <div class="hscroll-head">
+          <span class="eyebrow">Diensten</span>
+          <h2>Waar we je mee helpen</h2>
+        </div>
+        <div class="hscroll-track">
+          <div class="hscroll-card">
+            <h3>Social Media Management</h3>
+            <p>End-to-end beheer van je social media: van contentplanning en creatie tot copywriting, publiceren en community management. Wij zorgen voor een consistente, herkenbare stijl op elk kanaal en sturen actief bij op basis van resultaten. Dit pakket is de juiste keuze als je merk zichtbaar wil groeien op Instagram, LinkedIn of TikTok, maar de tijd, expertise of consistentie mist om dat zelf vol te houden. Wij nemen het volledige proces uit handen, zodat jij je kunt focussen op je bedrijf terwijl je online aanwezigheid professioneel blijft groeien.</p>
+            <a href="/diensten.html">Meer over dit pakket &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <h3>Content Creation</h3>
+            <p>Professionele foto- en videocontent voor elk kanaal: van reels en dronebeelden tot branded content op maat. Wij zorgen voor beeldmateriaal dat opvalt tussen de scroll, aansluit bij je merkidentiteit en werkt op elk platform waar je doelgroep zich bevindt. Nodig als je merk verdient om er professioneel uit te zien, maar je zelf niet de tijd, apparatuur of ervaring hebt om dat te realiseren. Van een enkele fotoshoot tot doorlopende videoproductie: wij leveren content die je merk versterkt.</p>
+            <a href="/diensten.html">Meer over dit pakket &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <h3>Branding &amp; Visual Identity</h3>
+            <p>Een gedenkwaardige, consistente merkidentiteit met een doordacht logo, kleurpalet, typografie en visuele richtlijnen. Zo bouw je een merk dat je doelgroep meteen herkent, op elk platform en in elke uiting. Dit pakket is essentieel bij de start van een nieuw merk, of wanneer je huidige identiteit gedateerd aanvoelt en niet meer aansluit bij waar je bedrijf nu staat. Een sterke visuele basis zorgt voor vertrouwen en herkenning op de lange termijn.</p>
+            <a href="/diensten.html">Meer over dit pakket &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <h3>Website Design</h3>
+            <p>Moderne, responsive websites die daadwerkelijk converteren. Van UX/UI-ontwerp tot een SEO-vriendelijke structuur en mobiele optimalisatie: wij bouwen een website die niet alleen goed oogt, maar bezoekers ook omzet in klanten. Kies hiervoor als je huidige site verouderd is, slecht presteert op mobiel, of simpelweg niet meer het verhaal vertelt dat bij je merk past. Een goede website is vaak het eerste contactmoment met een potentiële klant, dus die moet raak zijn.</p>
+            <a href="/diensten.html">Meer over dit pakket &rarr;</a>
+          </div>
+          <div class="hscroll-card">
+            <h3>Brand Strategy &amp; Audit</h3>
+            <p>Elk succesvol merk begint met een heldere strategie. Wij analyseren je bedrijf, doelgroep en concurrenten, bepalen een scherpe merkpositionering en zetten dit om in een concrete routekaart voor groei. Dit pakket is de juiste eerste stap als je merk richting mist, als content en campagnes los van elkaar voelen, of als je twijfelt welke koers de beste is. Met een heldere strategie werkt elke volgende actie mee aan hetzelfde doel.</p>
+            <a href="/diensten.html">Meer over dit pakket &rarr;</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Testimonials -->
-    <section>
+    <section class="quotes-section">
       <div class="container">
-        <span class="eyebrow">Klanten aan het woord</span>
-        <h2>Wat merken over ons zeggen</h2>
-        <div class="testimonials-grid" data-render="testimonials"></div>
+        <span class="eyebrow reveal">Klanten aan het woord</span>
+        <h2 class="reveal">Wat merken over ons zeggen</h2>
+        <div class="quotes-slider" id="clQuotes" data-render="testimonials"></div>
+        <div class="quote-dots" id="clQuoteDots" role="tablist" aria-label="Testimonials"></div>
       </div>
     </section>
 
@@ -209,6 +266,5 @@
   <script src="/js/script.js" defer></script>
   <script src="/js/content-loader.js" defer></script>
   <script src="/js/smoke.js" defer></script>
-  <script src="/js/network-diagram.js" defer></script>
 </body>
 </html>
