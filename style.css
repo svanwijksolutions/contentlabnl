@@ -906,15 +906,22 @@ body.menu-open .site-header {
   font-family: var(--font-body); font-weight: 400;
   font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.35;
 }
-.tscrub-word { color: var(--color-border); font-weight: 400; transition: color 0.25s ease, font-weight 0.25s ease; }
+.tscrub-word {
+  color: var(--color-border); font-weight: 400;
+  text-decoration: none;
+  transition: color 0.25s ease, font-weight 0.25s ease;
+}
 .tscrub-word.on { color: var(--color-text); font-weight: 700; }
+/* Een subtiele kleurverschuiving (zoals eerder --accent-color) bleek in de
+   praktijk niet duidelijk genoeg te lezen als "veranderd" naast de grijze
+   niet-actieve tekst. Daarom nu dezelfde vette zwarte tekst als de rest,
+   met een duidelijke accentkleur-onderstreping als extra visueel signaal. */
 .tscrub-word.hl.on {
-  /* Pure --accent-color is te dicht bij de "nog niet actief"-grijstint om
-     als duidelijk "ingekleurd" te lezen; een stuk donkerder gemengd met
-     --color-dark geeft wél voldoende contrast, en blijft op de accentkleur
-     gebaseerd (geen nieuwe kleur geïntroduceerd). */
-  color: #68655F;
-  color: color-mix(in srgb, var(--accent-color) 70%, var(--color-dark));
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
 }
 .faq-category { margin-bottom: var(--space-4); }
 .faq-item {
