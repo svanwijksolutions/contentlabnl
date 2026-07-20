@@ -177,14 +177,19 @@ function initLangDropdown() {
 // ---------- WhatsApp-knop verandert van kleur nabij de footer ----------
 function initWhatsAppFooterProximity() {
   const whatsappFloat = document.querySelector('.whatsapp-float');
-  const footer = document.querySelector('.site-footer');
-  if (!whatsappFloat || !footer) return;
+  // Alle donkere secties waar de knop overheen kan zweven, niet alleen de
+  // footer (bijv. ook de donkere testimonial-sectie).
+  const darkSections = document.querySelectorAll('.site-footer, .quotes-section');
+  if (!whatsappFloat || !darkSections.length) return;
 
   function update() {
-    const footerRect = footer.getBoundingClientRect();
     const waRect = whatsappFloat.getBoundingClientRect();
     const waCenterY = waRect.top + waRect.height / 2;
-    whatsappFloat.classList.toggle('whatsapp-on-dark', footerRect.top <= waCenterY);
+    const overDark = Array.from(darkSections).some(section => {
+      const r = section.getBoundingClientRect();
+      return waCenterY >= r.top && waCenterY <= r.bottom;
+    });
+    whatsappFloat.classList.toggle('whatsapp-on-dark', overDark);
   }
 
   let ticking = false;
@@ -196,7 +201,8 @@ function initWhatsAppFooterProximity() {
   window.addEventListener('resize', onScroll, { passive: true });
   document.addEventListener('scroll', onScroll, { passive: true, capture: true });
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(update, { threshold: [0, 0.01, 0.5, 1] }).observe(footer);
+    const observer = new IntersectionObserver(update, { threshold: [0, 0.01, 0.5, 1] });
+    darkSections.forEach(section => observer.observe(section));
   }
   update();
 }
@@ -430,6 +436,7 @@ window.initQuoteSlider = function () {
   quotes.forEach((_, i) => {
     const b = document.createElement('button');
     b.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+    b.innerHTML = '<span class="quote-dots-fill"></span>';
     b.addEventListener('click', () => { show(i); restart(); });
     dotsWrap.appendChild(b);
   });
@@ -439,7 +446,17 @@ window.initQuoteSlider = function () {
   function show(i) {
     index = i;
     quotes.forEach((q, j) => q.classList.toggle('active', j === i));
-    dots.forEach((d, j) => d.classList.toggle('active', j === i));
+    dots.forEach((d, j) => {
+      d.classList.toggle('active', j === i);
+      // Forceer een reflow zodat de vul-animatie altijd bij 0% herstart,
+      // ook wanneer dezelfde dot opnieuw actief wordt (na een volle ronde).
+      const fill = d.querySelector('.quote-dots-fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        void fill.offsetWidth;
+        fill.style.animation = '';
+      }
+    });
   }
   function restart() {
     clearInterval(timer);
@@ -487,7 +504,13 @@ function initHscrollAndTscrub() {
   function renderAll() {
     if (hscroll && htrack) {
       const p = sectionProgress(hscroll);
-      const max = Math.max(0, htrack.scrollWidth - window.innerWidth);
+      // scrollWidth telt de eind-padding van de track niet mee (bekende
+      // browser-eigenaardigheid bij LTR-content), dus die tellen we hier
+      // terug erbij op. Zonder deze correctie stopt de scroll te vroeg en
+      // eindigt de laatste kaart vlak tegen de rand i.p.v. met dezelfde
+      // marge als de eerste kaart aan het begin.
+      const trailingPad = parseFloat(getComputedStyle(htrack).paddingRight) || 0;
+      const max = Math.max(0, htrack.scrollWidth - window.innerWidth + trailingPad);
       htrack.style.transform = 'translateX(' + (-p * max) + 'px)';
     }
     if (tscrub && words.length) {
