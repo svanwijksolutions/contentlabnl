@@ -899,30 +899,21 @@ body.menu-open .site-header {
    rond een korte zin, hoe kort de scrollafstand ook was. In plaats daarvan
    is dit een normale, compacte sectie; de inkleuring volgt gewoon de
    natuurlijke scrollpositie van de tekst zelf terwijl die voorbijkomt. */
-.tscrub-section { padding: var(--space-4) 0; }
+.tscrub-section { padding: var(--space-5) 0; }
 .tscrub-pin { display: grid; place-items: center; padding: 0 var(--space-2); }
 .tscrub-pin p {
-  max-width: 26ch; text-align: center;
+  max-width: 60ch; text-align: center;
   font-family: var(--font-body); font-weight: 400;
-  font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.35;
+  font-size: clamp(1.4rem, 3.4vw, 2.4rem); line-height: 1.4;
 }
 .tscrub-word {
   color: var(--color-border); font-weight: 400;
-  text-decoration: none;
   transition: color 0.25s ease, font-weight 0.25s ease;
 }
+/* Alle tekst (ook het gemarkeerde deel) wordt gelijk dikgedrukt/zwart
+   zodra actief - geen aparte kleur of onderstreping meer, dat werd als
+   verwarrend/onopvallend ervaren. */
 .tscrub-word.on { color: var(--color-text); font-weight: 700; }
-/* Een subtiele kleurverschuiving (zoals eerder --accent-color) bleek in de
-   praktijk niet duidelijk genoeg te lezen als "veranderd" naast de grijze
-   niet-actieve tekst. Daarom nu dezelfde vette zwarte tekst als de rest,
-   met een duidelijke accentkleur-onderstreping als extra visueel signaal. */
-.tscrub-word.hl.on {
-  color: var(--color-text);
-  text-decoration: underline;
-  text-decoration-color: var(--accent-color);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 5px;
-}
 .faq-category { margin-bottom: var(--space-4); }
 .faq-item {
   border-bottom: 1px solid var(--color-border);

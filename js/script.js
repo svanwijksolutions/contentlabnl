@@ -528,7 +528,7 @@ function initTscrub() {
     return;
   }
 
-  words.forEach((w, i) => { w.style.transitionDelay = (i * 35) + 'ms'; });
+  words.forEach((w, i) => { w.style.transitionDelay = (i * 60) + 'ms'; });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
