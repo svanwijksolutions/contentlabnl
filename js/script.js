@@ -507,8 +507,12 @@ function initHscrollAndTscrub() {
   function tscrubProgress(el) {
     const rect = el.getBoundingClientRect();
     const vh = window.innerHeight;
-    const start = vh * 0.85, end = vh * 0.3;
-    return clamp01((start - rect.top) / (start - end));
+    const elCenter = rect.top + rect.height / 2;
+    const viewportCenter = vh / 2;
+    // Volledig ingekleurd/vet zodra de tekst precies het midden van het
+    // scherm bereikt, niet pas ruim daarna.
+    const start = vh * 0.9;
+    return clamp01((start - elCenter) / (start - viewportCenter));
   }
 
   let ticking = false;
