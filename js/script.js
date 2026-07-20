@@ -20,6 +20,7 @@ function init() {
   initCookieConsent();
   initStatsCounters();
   initHscrollAndTscrub();
+  initTscrub();
   initOrbit();
 }
 
@@ -473,66 +474,22 @@ function initHscrollAndTscrub() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hscroll = document.querySelector('.hscroll-section');
   const htrack = document.querySelector('.hscroll-track');
-  const tscrub = document.querySelector('.tscrub-section');
-  const tscrubText = document.querySelector('.tscrub-pin p');
 
-  let words = [];
-  if (tscrubText) {
-    const parts = [];
-    tscrubText.childNodes.forEach(node => {
-      if (node.nodeType === 3) {
-        node.textContent.split(/\s+/).filter(Boolean).forEach(w => parts.push('<span class="tscrub-word">' + w + '</span>'));
-      } else if (node.nodeType === 1) {
-        node.textContent.split(/\s+/).filter(Boolean).forEach(w => parts.push('<span class="tscrub-word hl">' + w + '</span>'));
-      }
-    });
-    tscrubText.innerHTML = parts.join(' ');
-    words = Array.from(tscrubText.querySelectorAll('.tscrub-word'));
-    if (reduced) words.forEach(w => w.classList.add('on'));
-  }
-
-  if (reduced || (!hscroll && !tscrub)) return;
-
-  function clamp01(v) { return Math.min(1, Math.max(0, v)); }
-  function sectionProgress(section) {
-    const rect = section.getBoundingClientRect();
-    const total = section.offsetHeight - window.innerHeight;
-    return total > 0 ? clamp01(-rect.top / total) : 0;
-  }
-  // Tekst-scrub heeft geen sticky/100vh-pin (dat maakte de sectie altijd
-  // schermvullend): de inkleuring volgt gewoon de natuurlijke positie van
-  // de tekst terwijl die door het beeld scrollt, tussen 85% en 30% van de
-  // viewporthoogte. Dat garandeert dat de tekst altijd volledig ingekleurd
-  // ís tegen de tijd dat hij het midden van het scherm nadert.
-  function tscrubProgress(el) {
-    const rect = el.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const elCenter = rect.top + rect.height / 2;
-    const viewportCenter = vh / 2;
-    // Volledig ingekleurd/vet zodra de tekst precies het midden van het
-    // scherm bereikt, niet pas ruim daarna.
-    const start = vh * 0.9;
-    return clamp01((start - elCenter) / (start - viewportCenter));
-  }
+  if (reduced || !hscroll || !htrack) return;
 
   let ticking = false;
   function renderAll() {
-    if (hscroll && htrack) {
-      const p = sectionProgress(hscroll);
-      // scrollWidth telt de eind-padding van de track niet mee (bekende
-      // browser-eigenaardigheid bij LTR-content), dus die tellen we hier
-      // terug erbij op. Zonder deze correctie stopt de scroll te vroeg en
-      // eindigt de laatste kaart vlak tegen de rand i.p.v. met dezelfde
-      // marge als de eerste kaart aan het begin.
-      const trailingPad = parseFloat(getComputedStyle(htrack).paddingRight) || 0;
-      const max = Math.max(0, htrack.scrollWidth - window.innerWidth + trailingPad);
-      htrack.style.transform = 'translateX(' + (-p * max) + 'px)';
-    }
-    if (tscrub && words.length) {
-      const p = tscrubProgress(tscrubText);
-      const active = Math.min(words.length, Math.ceil(p * words.length));
-      words.forEach((w, i) => w.classList.toggle('on', i < active));
-    }
+    const rect = hscroll.getBoundingClientRect();
+    const total = hscroll.offsetHeight - window.innerHeight;
+    const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    // scrollWidth telt de eind-padding van de track niet mee (bekende
+    // browser-eigenaardigheid bij LTR-content), dus die tellen we hier
+    // terug erbij op. Zonder deze correctie stopt de scroll te vroeg en
+    // eindigt de laatste kaart vlak tegen de rand i.p.v. met dezelfde
+    // marge als de eerste kaart aan het begin.
+    const trailingPad = parseFloat(getComputedStyle(htrack).paddingRight) || 0;
+    const max = Math.max(0, htrack.scrollWidth - window.innerWidth + trailingPad);
+    htrack.style.transform = 'translateX(' + (-p * max) + 'px)';
     ticking = false;
   }
   window.addEventListener('scroll', () => {
@@ -540,6 +497,47 @@ function initHscrollAndTscrub() {
   }, { passive: true });
   window.addEventListener('resize', renderAll);
   renderAll();
+}
+
+// ---------- Tekst-scrub ----------
+// Bewust GEEN doorlopende scroll-positie-berekening meer: die bleek te
+// gevoelig voor waar iemand toevallig stopt met scrollen (kon "half
+// ingekleurd" blijven hangen). In plaats daarvan: één keer triggeren zodra
+// de tekst voor de helft in beeld is (dezelfde IntersectionObserver-aanpak
+// die de rest van de site al gebruikt voor .reveal), en dan alle woorden
+// met een kleine, per-woord vertraging laten inkleuren. Zo is het resultaat
+// altijd compleet zodra het scrollen stopt, ongeacht de exacte positie.
+function initTscrub() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tscrubText = document.querySelector('.tscrub-pin p');
+  if (!tscrubText) return;
+
+  const parts = [];
+  tscrubText.childNodes.forEach(node => {
+    if (node.nodeType === 3) {
+      node.textContent.split(/\s+/).filter(Boolean).forEach(w => parts.push('<span class="tscrub-word">' + w + '</span>'));
+    } else if (node.nodeType === 1) {
+      node.textContent.split(/\s+/).filter(Boolean).forEach(w => parts.push('<span class="tscrub-word hl">' + w + '</span>'));
+    }
+  });
+  tscrubText.innerHTML = parts.join(' ');
+  const words = Array.from(tscrubText.querySelectorAll('.tscrub-word'));
+
+  if (reduced || !('IntersectionObserver' in window)) {
+    words.forEach(w => w.classList.add('on'));
+    return;
+  }
+
+  words.forEach((w, i) => { w.style.transitionDelay = (i * 35) + 'ms'; });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      words.forEach(w => w.classList.add('on'));
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.5 });
+  observer.observe(tscrubText);
 }
 
 // ---------- Orbit (homepage, vervangt "Van idee tot resultaat") ----------

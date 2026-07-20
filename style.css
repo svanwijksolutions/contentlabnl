@@ -908,7 +908,14 @@ body.menu-open .site-header {
 }
 .tscrub-word { color: var(--color-border); font-weight: 400; transition: color 0.25s ease, font-weight 0.25s ease; }
 .tscrub-word.on { color: var(--color-text); font-weight: 700; }
-.tscrub-word.hl.on { color: var(--accent-color); }
+.tscrub-word.hl.on {
+  /* Pure --accent-color is te dicht bij de "nog niet actief"-grijstint om
+     als duidelijk "ingekleurd" te lezen; een stuk donkerder gemengd met
+     --color-dark geeft wél voldoende contrast, en blijft op de accentkleur
+     gebaseerd (geen nieuwe kleur geïntroduceerd). */
+  color: #68655F;
+  color: color-mix(in srgb, var(--accent-color) 70%, var(--color-dark));
+}
 .faq-category { margin-bottom: var(--space-4); }
 .faq-item {
   border-bottom: 1px solid var(--color-border);
