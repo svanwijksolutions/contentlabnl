@@ -28,6 +28,8 @@ collections:
               - { label: "Intro (EN)", name: "intro_en", widget: "string" }
               - { label: "Features (NL)", name: "features_nl", widget: "list" }
               - { label: "Features (EN)", name: "features_en", widget: "list" }
+              - { label: "Homepage teaser (NL)", name: "homepage_teaser_nl", widget: "text", required: false, hint: "Langere tekst voor de kaart op de homepage. Leeg = gebruikt de korte intro hierboven." }
+              - { label: "Homepage teaser (EN)", name: "homepage_teaser_en", widget: "text", required: false, hint: "Longer text for the homepage card. Empty = falls back to the short intro above." }
               - { label: "Order", name: "order", widget: "number" }
 
   - name: "testimonials"
