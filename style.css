@@ -196,6 +196,13 @@ body.menu-open .site-header {
 .logo-link img { height: 42px; width: auto; transition: transform var(--transition-fast); }
 .logo-link:hover img { transform: scale(1.03); }
 .logo-wordmark { font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.logo-o-mark {
+  display: inline-block;
+  width: 0.72em;
+  height: 0.72em;
+  vertical-align: -0.06em;
+  fill: currentColor;
+}
 
 .nav-links {
   display: none;
@@ -415,6 +422,7 @@ body.menu-open .site-header {
   height: auto;
   border-radius: var(--radius-card);
 }
+.hero-image-compact img { max-width: 82%; margin: 0 auto; }
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
