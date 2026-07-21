@@ -496,6 +496,10 @@ function initHscrollAndTscrub() {
     if (!ticking) { ticking = true; requestAnimationFrame(renderAll); }
   }, { passive: true });
   window.addEventListener('resize', renderAll);
+  // De track wordt async gevuld door content-loader.js (CMS-pakketten), dus
+  // scrollWidth is bij deze initiële call nog niet definitief. content-loader
+  // roept dit opnieuw aan zodra de kaarten in de DOM staan.
+  window.refreshHscroll = renderAll;
   renderAll();
 }
 

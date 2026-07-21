@@ -34,14 +34,20 @@
   }
 
   // ---------- Pakketten ----------
+  // Rendert zowel de volledige pakketten-grid (diensten-pagina, [data-render="packages"])
+  // als de horizontale scroll-strook op de homepage ([data-render="packages-hscroll"]).
+  // Beide lezen uit dezelfde content/packages.json, dus een nieuw pakket in het CMS
+  // verschijnt automatisch op beide plekken zonder codewijziging.
   function renderPackages() {
     const containers = document.querySelectorAll('[data-render="packages"]');
-    if (!containers.length) return;
+    const hscrollContainers = document.querySelectorAll('[data-render="packages-hscroll"]');
+    if (!containers.length && !hscrollContainers.length) return;
 
     fetch('/content/packages.json')
       .then(r => r.json())
       .then(data => {
         const items = (data.packages || []).sort((a, b) => a.order - b.order);
+
         containers.forEach(container => {
           const limit = container.getAttribute('data-limit');
           const list = limit ? items.slice(0, parseInt(limit, 10)) : items;
@@ -65,9 +71,27 @@
           }).join('');
           requestAnimationFrame(() => window.observeReveal && window.observeReveal(container));
         });
+
+        hscrollContainers.forEach(container => {
+          container.innerHTML = items.map(pkg => {
+            const teaser = (isEnglish ? pkg.homepage_teaser_en : pkg.homepage_teaser_nl)
+              || (isEnglish ? pkg.intro_en : pkg.intro_nl);
+            return `
+            <div class="hscroll-card">
+              <h3>${escapeHtml(isEnglish ? pkg.title_en : pkg.title_nl)}</h3>
+              <p>${escapeHtml(teaser)}</p>
+              <a href="${isEnglish ? '/en/services.html' : '/diensten.html'}">${t('Meer over dit pakket', 'More about this package')} &rarr;</a>
+            </div>
+          `;
+          }).join('');
+          // Herbereken de horizontale scroll-afstand: die hangt af van het
+          // aantal kaarten (scrollWidth), en dit vult pas na deze async fetch.
+          if (typeof window.refreshHscroll === 'function') window.refreshHscroll();
+        });
       })
       .catch(() => {
         containers.forEach(c => { c.innerHTML = `<p>${t('Pakketten konden niet worden geladen.', 'Packages could not be loaded.')}</p>`; });
+        hscrollContainers.forEach(c => { c.innerHTML = `<p>${t('Pakketten konden niet worden geladen.', 'Packages could not be loaded.')}</p>`; });
       });
   }
 
