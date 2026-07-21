@@ -195,7 +195,7 @@ body.menu-open .site-header {
 .logo-link { display: flex; align-items: center; gap: 10px; min-height: 44px; }
 .logo-link img { height: 42px; width: auto; transition: transform var(--transition-fast); }
 .logo-link:hover img { transform: scale(1.03); }
-.logo-wordmark { font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 0.05em; }
+.logo-wordmark { font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; }
 
 .nav-links {
   display: none;
@@ -1445,6 +1445,10 @@ body.cookie-banner-open .whatsapp-float { display: none; }
   transition: transform var(--transition-fast);
 }
 .skip-link:focus { transform: translateY(0); }
+
+/* ---------- Meet the Founder (over ons / about) ---------- */
+.founder-section { padding: var(--space-5) 0; }
+.founder-section .hero-content p + p { margin-top: var(--space-2); }
 
 /* ---------- Section dividers ---------- */
 .section-alt { background: var(--color-bg-alt); }
