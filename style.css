@@ -195,7 +195,8 @@ body.menu-open .site-header {
 .logo-link { display: flex; align-items: center; gap: 10px; min-height: 44px; }
 .logo-link img { height: 42px; width: auto; transition: transform var(--transition-fast); }
 .logo-link:hover img { transform: scale(1.03); }
-.logo-wordmark { font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 0.05em; }
+.logo-wordmark { display: flex; align-items: center; color: var(--color-text); }
+.logo-wordmark-svg { height: 20px; width: auto; display: block; fill: currentColor; }
 
 .nav-links {
   display: none;
@@ -415,6 +416,7 @@ body.menu-open .site-header {
   height: auto;
   border-radius: var(--radius-card);
 }
+.hero-image-compact img { max-width: 82%; margin: 0 auto; }
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
@@ -1446,6 +1448,10 @@ body.cookie-banner-open .whatsapp-float { display: none; }
 }
 .skip-link:focus { transform: translateY(0); }
 
+/* ---------- Meet the Founder (over ons / about) ---------- */
+.founder-section { padding: var(--space-5) 0; }
+.founder-section .hero-content p + p { margin-top: var(--space-2); }
+
 /* ---------- Section dividers ---------- */
 .section-alt { background: var(--color-bg-alt); }
 
@@ -1465,8 +1471,10 @@ body.cookie-banner-open .whatsapp-float { display: none; }
   .menu-toggle { display: none; }
 
   .hero-inner { grid-template-columns: 1fr 1fr; }
-  .hero.hero-reverse .hero-inner { direction: rtl; }
-  .hero.hero-reverse .hero-content { direction: ltr; }
+  /* hero-reverse zit op hetzelfde element als hero-inner (niet op de
+     buitenste .hero-sectie), dus de selector moet daar direct op matchen. */
+  .hero-inner.hero-reverse { direction: rtl; }
+  .hero-inner.hero-reverse .hero-content { direction: ltr; }
 
   .usp-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 2fr 1fr 1.3fr 1fr; }
