@@ -28,7 +28,6 @@ collections:
               - { label: "Intro (EN)", name: "intro_en", widget: "string" }
               - { label: "Features (NL)", name: "features_nl", widget: "list" }
               - { label: "Features (EN)", name: "features_en", widget: "list" }
-              - { label: "Price", name: "price", widget: "string", default: "In overleg" }
               - { label: "Order", name: "order", widget: "number" }
 
   - name: "testimonials"
