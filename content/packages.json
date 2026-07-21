@@ -106,19 +106,6 @@
         "Growth roadmap"
       ],
       "order": 5
-    },
-    {
-      "title_nl": "Test pakket 6",
-      "title_en": "Test package",
-      "intro_nl": "Testen van het pakket",
-      "intro_en": "Test from the package",
-      "features_nl": [
-        "Social media management"
-      ],
-      "features_en": [
-        "Social media management 2"
-      ],
-      "order": 6
     }
   ]
 }
